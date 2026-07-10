@@ -1,0 +1,170 @@
+{
+  "meta": {
+    "siteName": "DTCA - Công ty TNHH Thương mại và Kỹ thuật DTCA",
+    "defaultTitle": "DTCA | Giải pháp tự động hóa, SCADA & thiết bị điện",
+    "defaultDescription": "DTCA cung cấp giải pháp tự động hóa SCADA/DCS, hệ thống thông tin và thiết bị nhất thứ, tủ điều khiển bảo vệ cho nhà máy điện, trạm biến áp và khu công nghiệp trên toàn quốc."
+  },
+  "nav": {
+    "home": "Trang chủ",
+    "products": "Sản phẩm & Dịch vụ",
+    "productsScada": "Giải pháp tự động hóa SCADA/DCS",
+    "productsInfo": "Hệ thống thông tin",
+    "productsPrimary": "Thiết bị nhất thứ & tủ điều khiển",
+    "solutions": "Giải pháp",
+    "projects": "Dự án",
+    "news": "Tin tức",
+    "about": "Về chúng tôi",
+    "contact": "Liên hệ"
+  },
+  "footer": {
+    "tagline": "Uy tín - Chất lượng - Hiệu quả. Đối tác tin cậy trong lĩnh vực tự động hóa, SCADA và thiết bị điện.",
+    "menuTitle": "Liên kết nhanh",
+    "contactTitle": "Thông tin liên hệ",
+    "workingHoursTitle": "Giờ làm việc",
+    "workingHours": "Thứ 2 - Thứ 6: 8:00 - 17:00\nThứ 7: 8:00 - 12:00",
+    "rights": "Đã đăng ký bản quyền."
+  },
+  "home": {
+    "heroEyebrow": "CÔNG TY TNHH THƯƠNG MẠI VÀ KỸ THUẬT DTCA",
+    "heroTitle": "Giải pháp tự động hóa, SCADA và thiết bị điện toàn diện",
+    "heroDescription": "DTCA được thành lập bởi các kỹ sư giàu kinh nghiệm trong lĩnh vực tự động hóa, hệ thống thông tin và hệ thống điện, mang đến giải pháp tin cậy và an toàn nhất cho khách hàng.",
+    "heroCtaPrimary": "Liên hệ tư vấn",
+    "heroCtaSecondary": "Xem dự án tiêu biểu",
+    "introTitle": "Thư ngỏ",
+    "introBody": "CÔNG TY TNHH THƯƠNG MẠI VÀ KỸ THUẬT DTCA (viết tắt DTCA) được thành lập bởi các kỹ sư giàu kinh nghiệm trong lĩnh vực tự động hóa, hệ thống thông tin và hệ thống điện. DTCA ra đời với sứ mệnh giải quyết các vấn đề về điện, đưa ra các giải pháp tốt nhất để đem lại nhiều hiệu quả kinh tế phù hợp với nhu cầu khách hàng.\n\nDTCA hợp tác với các đối tác uy tín hàng đầu trong và ngoài nước về thiết bị điện, tự động hóa như Phoenix Contact, Siemens, Mitsubishi, ABB, Sick, Taikai, Chint... để mang lại giải pháp tự động hóa tin cậy nhất và an toàn nhất.\n\nDTCA luôn hoạt động với tiêu chí \"AN TOÀN - TIẾN ĐỘ - HIỆU QUẢ - CHẤT LƯỢNG\", hướng tới sự tin tưởng, hài lòng tuyệt đối của Quý khách hàng trong từng công trình, dự án.",
+    "servicesTitle": "Sản phẩm & Dịch vụ",
+    "servicesDescription": "Ba nhóm năng lực cốt lõi giúp DTCA đồng hành cùng khách hàng từ thiết kế, thi công đến vận hành hệ thống.",
+    "solutionsTitle": "Giải pháp theo ngành",
+    "solutionsDescription": "DTCA đã triển khai thành công nhiều dự án trong các lĩnh vực năng lượng và công nghiệp trọng điểm.",
+    "partnersTitle": "Đối tác - Thương hiệu cung cấp",
+    "partnersDescription": "DTCA là đơn vị cung cấp, tích hợp thiết bị của các thương hiệu uy tín hàng đầu trong và ngoài nước.",
+    "statsProjects": "Dự án đã triển khai",
+    "statsProvinces": "Tỉnh, thành đã triển khai",
+    "statsEngineers": "Kỹ sư chuyên môn",
+    "statsPartners": "Đối tác thiết bị",
+    "newsTitle": "Tin mới nhất",
+    "newsDescription": "Cập nhật hoạt động, dự án và công nghệ mới nhất từ DTCA.",
+    "ctaTitle": "Sẵn sàng hợp tác cùng DTCA?",
+    "ctaDescription": "Liên hệ ngay để được tư vấn giải pháp tự động hóa, SCADA và thiết bị điện phù hợp với dự án của bạn.",
+    "ctaButton": "Liên hệ ngay"
+  },
+  "products": {
+    "backToOverview": "Xem tất cả Sản phẩm & Dịch vụ",
+    "relatedProjects": "Dự án tiêu biểu liên quan",
+    "scada": {
+      "title": "Giải pháp tự động hóa SCADA/DCS",
+      "eyebrow": "Sản phẩm & Dịch vụ",
+      "intro": "DTCA cung cấp giải pháp tự động hóa toàn diện, từ thiết kế, thi công hệ thống SCADA, DCS đến tích hợp phần mềm giám sát - điều khiển cho nhà máy điện và các dây chuyền sản xuất công nghiệp.",
+      "items": [
+        "Thiết kế, thi công hệ thống SCADA, DCS cho nhà máy thủy điện, nhiệt điện, điện mặt trời",
+        "Cung cấp phần mềm SCADA của các hãng Triangle MicroWorks, Siemens, ABB",
+        "Cấu hình, thí nghiệm hiệu chỉnh (TNHC), khôi phục hệ thống SCADA/DCS",
+        "Kết nối, truyền dữ liệu về Trung tâm Điều độ hệ thống điện (A0/A1/NSO)",
+        "Thử nghiệm hệ thống điều tốc, kích từ máy phát"
+      ]
+    },
+    "infoSystems": {
+      "title": "Hệ thống thông tin",
+      "eyebrow": "Sản phẩm & Dịch vụ",
+      "intro": "DTCA cung cấp, thiết kế hạ tầng mạng và bảo mật thông tin phục vụ kết nối dữ liệu vận hành cho trạm biến áp, nhà máy điện và khu công nghiệp.",
+      "items": [
+        "Switch Layer 3, Layer 2 các hãng Cisco, Valiant, Juniper",
+        "Firewall Sophos, Cisco",
+        "Router Robustel cho kết nối truyền dữ liệu từ xa",
+        "Khôi phục, nâng cấp kênh truyền dữ liệu về trung tâm điều độ",
+        "Tư vấn, thiết kế hạ tầng mạng cho hệ thống SCADA/DCS"
+      ]
+    },
+    "primaryEquipment": {
+      "title": "Thiết bị nhất thứ & tủ điều khiển, bảo vệ",
+      "eyebrow": "Sản phẩm & Dịch vụ",
+      "intro": "DTCA cung cấp, thiết kế, thi công thiết bị nhất thứ và các loại tủ điều khiển, bảo vệ cho trạm biến áp 110kV - 220kV và nhà máy công nghiệp.",
+      "items": [
+        "Tủ điều khiển bảo vệ 220kV, 110kV",
+        "Tủ hạ thế",
+        "Tủ tụ bù công suất",
+        "Tủ điều khiển động cơ, bàn điều khiển",
+        "Tủ công tơ Pillar",
+        "Thiết bị nhất thứ các hãng ABB, Siemens, Taikai, Chint"
+      ]
+    }
+  },
+  "solutions": {
+    "pageTitle": "Giải pháp theo ngành",
+    "pageDescription": "DTCA đồng hành cùng khách hàng trong các lĩnh vực năng lượng và sản xuất công nghiệp trọng điểm, từ thủy điện, nhiệt điện, điện mặt trời đến trạm biến áp và nhà máy sản xuất.",
+    "viewProjects": "Xem dự án",
+    "categories": {
+      "nha-may-dien": {
+        "title": "Nhà máy điện (Thủy điện - Nhiệt điện)",
+        "description": "Thiết kế, thi công, cấu hình và khôi phục hệ thống SCADA/DCS cho các nhà máy thủy điện và nhiệt điện trên khắp cả nước."
+      },
+      "dien-mat-troi": {
+        "title": "Điện mặt trời",
+        "description": "Cấu hình, thử nghiệm hệ thống SCADA giám sát vận hành cho các nhà máy điện mặt trời."
+      },
+      "tram-bien-ap": {
+        "title": "Trạm biến áp 110kV - 220kV",
+        "description": "Cung cấp thiết bị, cấu hình, thí nghiệm hiệu chỉnh hệ thống SCADA và thiết bị bảo vệ rơ le cho các trạm biến áp truyền tải và phân phối."
+      },
+      "san-xuat-cong-nghiep": {
+        "title": "Sản xuất công nghiệp",
+        "description": "Giải pháp tự động hóa, SCADA cho nhà máy xi măng, thép, cảng biển và các công trình thủy lợi."
+      }
+    }
+  },
+  "projects": {
+    "pageTitle": "Dự án tiêu biểu",
+    "pageDescription": "DTCA đã triển khai hơn 35 công trình, dự án về SCADA, tự động hóa và thiết bị điện trên khắp cả nước từ năm 2024 đến nay.",
+    "inProgress": "Đang triển khai",
+    "filterAll": "Tất cả",
+    "filterYear": "Năm {year}",
+    "empty": "Chưa có dự án nào trong mục này."
+  },
+  "news": {
+    "pageTitle": "Tin tức",
+    "pageDescription": "Cập nhật hoạt động, dự án tiêu biểu và kiến thức chuyên ngành tự động hóa - SCADA từ DTCA.",
+    "readMore": "Đọc tiếp",
+    "backToList": "Quay lại danh sách tin tức",
+    "empty": "Chưa có bài viết nào."
+  },
+  "about": {
+    "pageTitle": "Về chúng tôi",
+    "introTitle": "Giới thiệu công ty",
+    "companyInfoTitle": "Thông tin công ty",
+    "fieldName": "Tên công ty",
+    "fieldAddress": "Địa chỉ",
+    "fieldOffice": "Văn phòng",
+    "fieldHotline": "Hotline",
+    "fieldEmail": "Email",
+    "fieldWebsite": "Website",
+    "fieldTaxCode": "Mã số thuế",
+    "fieldRepresentative": "Người đại diện",
+    "fieldPosition": "Chức vụ",
+    "orgChartTitle": "Sơ đồ tổ chức",
+    "workforceTitle": "Nguồn nhân lực",
+    "workforceRole": "Trình độ",
+    "workforceCount": "Số lượng",
+    "workforceTotal": "Tổng số nhân viên",
+    "partnersTitle": "Đối tác - Thương hiệu cung cấp",
+    "partnerDisclaimer": "Các thương hiệu trên là đối tác cung cấp thiết bị mà DTCA hợp tác tích hợp, triển khai — không phải quan hệ phân phối độc quyền.",
+    "criteriaTitle": "Tiêu chí hoạt động",
+    "criteria": ["An toàn", "Tiến độ", "Hiệu quả", "Chất lượng"]
+  },
+  "contact": {
+    "pageTitle": "Liên hệ",
+    "pageDescription": "DTCA luôn sẵn sàng tư vấn giải pháp tự động hóa, SCADA và thiết bị điện phù hợp với nhu cầu của Quý khách hàng.",
+    "officeTitle": "Văn phòng Hà Nội",
+    "formTitle": "Gửi yêu cầu tư vấn",
+    "form": {
+      "name": "Họ và tên",
+      "phone": "Số điện thoại",
+      "email": "Email",
+      "company": "Công ty",
+      "message": "Nội dung yêu cầu",
+      "send": "Gửi yêu cầu",
+      "sending": "Đang gửi...",
+      "success": "Cảm ơn Quý khách! DTCA đã nhận được yêu cầu và sẽ phản hồi sớm nhất.",
+      "error": "Đã có lỗi xảy ra, vui lòng thử lại hoặc liên hệ trực tiếp qua hotline."
+    }
+  }
+}

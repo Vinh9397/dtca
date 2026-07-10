@@ -1,0 +1,170 @@
+{
+  "meta": {
+    "siteName": "DTCA - DTCA Trading and Technical Company Limited",
+    "defaultTitle": "DTCA | Automation, SCADA & Electrical Equipment Solutions",
+    "defaultDescription": "DTCA provides SCADA/DCS automation solutions, information systems, and primary equipment/protection-control cabinets for power plants, substations and industrial parks nationwide."
+  },
+  "nav": {
+    "home": "Home",
+    "products": "Products & Services",
+    "productsScada": "SCADA/DCS Automation Solutions",
+    "productsInfo": "Information Systems",
+    "productsPrimary": "Primary Equipment & Control Cabinets",
+    "solutions": "Solutions",
+    "projects": "Projects",
+    "news": "News",
+    "about": "About Us",
+    "contact": "Contact"
+  },
+  "footer": {
+    "tagline": "Reputation - Quality - Efficiency. A trusted partner in automation, SCADA and electrical equipment.",
+    "menuTitle": "Quick Links",
+    "contactTitle": "Contact Information",
+    "workingHoursTitle": "Working Hours",
+    "workingHours": "Mon - Fri: 8:00 AM - 5:00 PM\nSat: 8:00 AM - 12:00 PM",
+    "rights": "All rights reserved."
+  },
+  "home": {
+    "heroEyebrow": "DTCA TRADING AND TECHNICAL COMPANY LIMITED",
+    "heroTitle": "Comprehensive automation, SCADA and electrical-equipment solutions",
+    "heroDescription": "DTCA was founded by experienced engineers in automation, information systems and power systems, delivering the most reliable and safe solutions to our customers.",
+    "heroCtaPrimary": "Get in touch",
+    "heroCtaSecondary": "View featured projects",
+    "introTitle": "Message from DTCA",
+    "introBody": "DTCA Trading and Technical Company Limited (DTCA) was founded by experienced engineers in automation, information systems and power systems. DTCA was established with the mission of solving power-industry challenges and delivering the best solutions to bring economic efficiency that meets customer needs.\n\nDTCA partners with leading domestic and international brands in electrical equipment and automation such as Phoenix Contact, Siemens, Mitsubishi, ABB, Sick, Taikai and Chint to deliver the most reliable and safe automation solutions.\n\nDTCA always operates under the principle of \"SAFETY - SCHEDULE - EFFICIENCY - QUALITY\", aiming for the complete trust and satisfaction of our customers on every project.",
+    "servicesTitle": "Products & Services",
+    "servicesDescription": "Three core capability groups that help DTCA accompany customers from design and construction to system operation.",
+    "solutionsTitle": "Solutions by Industry",
+    "solutionsDescription": "DTCA has successfully delivered numerous projects across key energy and industrial sectors.",
+    "partnersTitle": "Partners - Equipment Brands",
+    "partnersDescription": "DTCA supplies and integrates equipment from leading domestic and international brands.",
+    "statsProjects": "Projects delivered",
+    "statsProvinces": "Provinces / cities covered",
+    "statsEngineers": "Specialized engineers",
+    "statsPartners": "Equipment partners",
+    "newsTitle": "Latest News",
+    "newsDescription": "Latest updates on DTCA's activities, projects and technology.",
+    "ctaTitle": "Ready to work with DTCA?",
+    "ctaDescription": "Get in touch now for consultation on automation, SCADA and electrical-equipment solutions tailored to your project.",
+    "ctaButton": "Contact us now"
+  },
+  "products": {
+    "backToOverview": "View all Products & Services",
+    "relatedProjects": "Related featured projects",
+    "scada": {
+      "title": "SCADA/DCS Automation Solutions",
+      "eyebrow": "Products & Services",
+      "intro": "DTCA provides comprehensive automation solutions, from designing and installing SCADA/DCS systems to integrating monitoring and control software for power plants and industrial production lines.",
+      "items": [
+        "Design and installation of SCADA/DCS systems for hydropower, thermal power and solar power plants",
+        "Supply of SCADA software from Triangle MicroWorks, Siemens, ABB",
+        "Configuration, commissioning tests, and recovery of SCADA/DCS systems",
+        "Data connection and transmission to power system load-dispatch centers (A0/A1/NSO)",
+        "Testing of generator governor and excitation systems"
+      ]
+    },
+    "infoSystems": {
+      "title": "Information Systems",
+      "eyebrow": "Products & Services",
+      "intro": "DTCA supplies and designs network infrastructure and information security to serve operational data connectivity for substations, power plants and industrial parks.",
+      "items": [
+        "Layer 3 and Layer 2 switches from Cisco, Valiant, Juniper",
+        "Sophos and Cisco firewalls",
+        "Robustel routers for remote data transmission",
+        "Recovery and upgrade of telemetry channels to load-dispatch centers",
+        "Consulting and design of network infrastructure for SCADA/DCS systems"
+      ]
+    },
+    "primaryEquipment": {
+      "title": "Primary Equipment & Protection-Control Cabinets",
+      "eyebrow": "Products & Services",
+      "intro": "DTCA supplies, designs and installs primary equipment and various protection-control cabinets for 110kV-220kV substations and industrial plants.",
+      "items": [
+        "220kV and 110kV protection-control cabinets",
+        "Low-voltage cabinets",
+        "Capacitor bank cabinets",
+        "Motor control cabinets and control desks",
+        "Pillar meter cabinets",
+        "Primary equipment from ABB, Siemens, Taikai, Chint"
+      ]
+    }
+  },
+  "solutions": {
+    "pageTitle": "Solutions by Industry",
+    "pageDescription": "DTCA accompanies customers across key energy and industrial manufacturing sectors, from hydropower, thermal power and solar power to substations and manufacturing plants.",
+    "viewProjects": "View projects",
+    "categories": {
+      "nha-may-dien": {
+        "title": "Power Plants (Hydropower - Thermal Power)",
+        "description": "Design, installation, configuration and recovery of SCADA/DCS systems for hydropower and thermal power plants nationwide."
+      },
+      "dien-mat-troi": {
+        "title": "Solar Power",
+        "description": "Configuration and testing of SCADA monitoring systems for solar power plants."
+      },
+      "tram-bien-ap": {
+        "title": "110kV - 220kV Substations",
+        "description": "Equipment supply, configuration and commissioning tests of SCADA systems and protection relay equipment for transmission and distribution substations."
+      },
+      "san-xuat-cong-nghiep": {
+        "title": "Industrial Manufacturing",
+        "description": "Automation and SCADA solutions for cement plants, steel plants, seaports and irrigation infrastructure."
+      }
+    }
+  },
+  "projects": {
+    "pageTitle": "Featured Projects",
+    "pageDescription": "DTCA has delivered more than 35 SCADA, automation and electrical-equipment projects nationwide since 2024.",
+    "inProgress": "In progress",
+    "filterAll": "All",
+    "filterYear": "Year {year}",
+    "empty": "No projects in this category yet."
+  },
+  "news": {
+    "pageTitle": "News",
+    "pageDescription": "Latest updates on DTCA's activities, featured projects and automation/SCADA industry knowledge.",
+    "readMore": "Read more",
+    "backToList": "Back to news list",
+    "empty": "No articles yet."
+  },
+  "about": {
+    "pageTitle": "About Us",
+    "introTitle": "Company Introduction",
+    "companyInfoTitle": "Company Information",
+    "fieldName": "Company name",
+    "fieldAddress": "Registered address",
+    "fieldOffice": "Office",
+    "fieldHotline": "Hotline",
+    "fieldEmail": "Email",
+    "fieldWebsite": "Website",
+    "fieldTaxCode": "Tax code",
+    "fieldRepresentative": "Legal representative",
+    "fieldPosition": "Position",
+    "orgChartTitle": "Organizational Chart",
+    "workforceTitle": "Workforce",
+    "workforceRole": "Qualification",
+    "workforceCount": "Headcount",
+    "workforceTotal": "Total employees",
+    "partnersTitle": "Partners - Equipment Brands",
+    "partnerDisclaimer": "The brands above are equipment partners that DTCA integrates and deploys — this is not an exclusive distribution relationship.",
+    "criteriaTitle": "Operating Principles",
+    "criteria": ["Safety", "Schedule", "Efficiency", "Quality"]
+  },
+  "contact": {
+    "pageTitle": "Contact",
+    "pageDescription": "DTCA is always ready to advise on automation, SCADA and electrical-equipment solutions tailored to your needs.",
+    "officeTitle": "Hanoi Office",
+    "formTitle": "Send a consultation request",
+    "form": {
+      "name": "Full name",
+      "phone": "Phone number",
+      "email": "Email",
+      "company": "Company",
+      "message": "Message",
+      "send": "Send request",
+      "sending": "Sending...",
+      "success": "Thank you! DTCA has received your request and will respond as soon as possible.",
+      "error": "Something went wrong. Please try again or contact us directly via hotline."
+    }
+  }
+}

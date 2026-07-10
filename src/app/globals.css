@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #101828;
+
+  /* DTCA brand — xanh navy chủ đạo (lấy từ tông màu tiêu đề trong hồ sơ năng lực) */
+  --color-navy-50: #f2f6fb;
+  --color-navy-100: #e2eaf5;
+  --color-navy-200: #c3d6ea;
+  --color-navy-300: #93b6d8;
+  --color-navy-400: #5c8fc0;
+  --color-navy-500: #3970a6;
+  --color-navy-600: #29578a;
+  --color-navy-700: #21456e;
+  --color-navy-800: #1a3557;
+  --color-navy-900: #142944;
+  --color-navy-950: #0b1a2e;
+
+  /* Điểm nhấn lấy từ 4 khối màu logo DTCA (D-T-C-A) */
+  --color-accent-blue: #3B82F6;
+  --color-accent-red: #E23744;
+  --color-accent-yellow: #F5B301;
+  --color-accent-green: #22A559;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  --color-navy-50: var(--color-navy-50);
+  --color-navy-100: var(--color-navy-100);
+  --color-navy-200: var(--color-navy-200);
+  --color-navy-300: var(--color-navy-300);
+  --color-navy-400: var(--color-navy-400);
+  --color-navy-500: var(--color-navy-500);
+  --color-navy-600: var(--color-navy-600);
+  --color-navy-700: var(--color-navy-700);
+  --color-navy-800: var(--color-navy-800);
+  --color-navy-900: var(--color-navy-900);
+  --color-navy-950: var(--color-navy-950);
+
+  --color-accent-blue: var(--color-accent-blue);
+  --color-accent-red: var(--color-accent-red);
+  --color-accent-yellow: var(--color-accent-yellow);
+  --color-accent-green: var(--color-accent-green);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.container-page {
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container-page {
+    padding-inline: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-page {
+    padding-inline: 2rem;
+  }
+}
