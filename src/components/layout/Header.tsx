@@ -30,7 +30,7 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b border-navy-100 bg-white/95 backdrop-blur">
       <div className="container-page flex h-16 items-center justify-between gap-4">
         <Link href="/" className="flex shrink-0 items-center gap-2">
-          <Logo className="h-16 w-auto" />
+          <Logo className="h-20 w-auto" />
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex">
