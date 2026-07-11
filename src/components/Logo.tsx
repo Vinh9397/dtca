@@ -8,7 +8,7 @@ interface LogoProps {
 export function Logo({ className }: LogoProps) {
   return (
     <Image
-      src="/DTCA_logo.png"
+      src="/DTCA.png"
       alt="DTCA Logo"
       width={176}
       height={48}
