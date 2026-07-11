@@ -10,8 +10,8 @@ export function Logo({ className }: LogoProps) {
     <Image
       src="/DTCA.png"
       alt="DTCA Logo"
-      width={264}
-      height={72}
+      width={352}
+      height={96}
       className={className}
       priority
     />
