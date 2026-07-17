@@ -39,7 +39,7 @@ export default async function HomePage({
   ];
 
   const stats = [
-    { label: t("statsProjects"), value: `${projects.length}+` },
+    { label: t("statsProjects"), value: "100+" },
     { label: t("statsProvinces"), value: `${provinceCount}` },
     { label: t("statsEngineers"), value: `${totalWorkforce - (workforce.at(-1)?.count ?? 0)}` },
     { label: t("statsPartners"), value: `${partners.length}` },
