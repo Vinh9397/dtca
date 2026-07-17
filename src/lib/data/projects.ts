@@ -316,6 +316,7 @@ export const projects: Project[] = [
     investor: "Công ty CP Thủy điện Hòa Thuận",
     contractor: "CÔNG TY CP DỊCH VỤ KỸ THUẬT ĐIỆN LỰC VIỆT NAM",
     category: "nha-may-dien",
+     image: "/images/projects/Hoa_thuan.jpg",
   },
   {
     id: 26,
