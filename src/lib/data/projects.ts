@@ -434,6 +434,7 @@ export const projects: Project[] = [
     investor: "Công ty CP Thủy điện Thành Phát Lai Châu",
     contractor: "CÔNG TY CP THỦY ĐIỆN THÀNH PHÁT LAI CHÂU",
     category: "nha-may-dien",
+    image: "/images/projects/Nam_xe_2.jpg",
   },
   {
     id: 34,
