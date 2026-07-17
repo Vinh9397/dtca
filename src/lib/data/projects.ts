@@ -211,9 +211,9 @@ export const projects: Project[] = [
   {
     id: 17,
     titleVi:
-      "Cung cấp, lắp đặt hệ thống thông tin, SCADA; thử nghiệm hệ thống điều tốc, kích từ Nhà máy Thủy điện Nậm Xe 2",
+      "Cung cấp, lắp đặt hệ thống thông tin, SCADA; thử nghiệm hệ thống điều tốc, kích từ Nhà máy Thủy điện Nậm Xe 2A",
     titleEn:
-      "Supply and installation of the telecom/SCADA systems; testing of the governor and excitation systems for Nam Xe 2 Hydropower Plant",
+      "Supply and installation of the telecom/SCADA systems; testing of the governor and excitation systems for Nam Xe 2A Hydropower Plant",
     locationVi: "Nhà máy thủy điện Nậm Xe, huyện Mường So, tỉnh Lai Châu",
     locationEn: "Nam Xe Hydropower Plant, Muong So District, Lai Chau Province",
     year: 2025,
