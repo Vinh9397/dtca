@@ -153,7 +153,7 @@ export const projects: Project[] = [
     investor: "Công ty CP Xi măng Thành Thắng",
     contractor: "CÔNG TY CỔ PHẦN XI MĂNG THÀNH THẮNG",
     category: "san-xuat-cong-nghiep",
-    image: "/images/projects/Thanh_thang_1.jpg",
+    image: "/images/projects/Thanh_thang_3.jpg",
   },
   {
     id: 13,
@@ -168,6 +168,7 @@ export const projects: Project[] = [
     investor: "Công ty CP Thép Hòa Phát Dung Quất",
     contractor: "CÔNG TY TNHH KỸ THUẬT CƠ ĐIỆN E-POWER",
     category: "san-xuat-cong-nghiep",
+    image: "/images/projects/Thanh_thang_1.jpg",
   },
   {
     id: 14,
