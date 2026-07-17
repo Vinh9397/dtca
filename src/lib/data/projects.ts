@@ -168,7 +168,7 @@ export const projects: Project[] = [
     investor: "Công ty CP Thép Hòa Phát Dung Quất",
     contractor: "CÔNG TY TNHH KỸ THUẬT CƠ ĐIỆN E-POWER",
     category: "san-xuat-cong-nghiep",
-    image: "/images/projects/Thanh_thang_1.jpg",
+    image: "/images/projects/Dung_quat.jpg",
   },
   {
     id: 14,
