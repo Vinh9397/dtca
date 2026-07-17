@@ -11,15 +11,15 @@ export function PartnerLogoGrid({ partners }: { partners: Partner[] }) {
         {partners.map((partner) => (
           <div
             key={partner.id}
-            className="relative flex h-24 items-center justify-center rounded-md border border-navy-100 bg-white p-2 text-center text-sm font-semibold text-navy-700"
+            className="relative flex h-28 items-center justify-center rounded-md border border-navy-100 bg-white p-1.5 text-center text-sm font-semibold text-navy-700"
             title={partner.name}
           >
             <Image
               src={partner.logo}
               alt={partner.name}
               fill
-              className="object-contain p-2 transition-transform duration-200 hover:scale-105"
-              sizes="(min-width: 1024px) 180px, 120px"
+              className="object-contain p-1.5 transition-transform duration-200 hover:scale-105"
+              sizes="(min-width: 1024px) 200px, 150px"
             />
           </div>
         ))}
