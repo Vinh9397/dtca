@@ -181,6 +181,7 @@ export const projects: Project[] = [
     investor: "Công ty CP Thủy điện Nậm Pia",
     contractor: "CÔNG TY CỔ PHẦN THỦY ĐIỆN NẬM PIA",
     category: "nha-may-dien",
+    image: "/images/projects/Nam_pia.jpg",
   },
   {
     id: 15,
@@ -232,6 +233,7 @@ export const projects: Project[] = [
     investor: "Công ty Nhiệt điện Sơn Động - TKV",
     contractor: "CÔNG TY NHIỆT ĐIỆN SƠN ĐỘNG - TKV",
     category: "nha-may-dien",
+    image: "/images/projects/Son_dong.jpg",
   },
   {
     id: 19,
@@ -244,6 +246,7 @@ export const projects: Project[] = [
     investor: "Công ty CP Tập đoàn Gang thép Hàn Việt",
     contractor: "CÔNG TY CP TẬP ĐOÀN GANG THÉP HÀN VIỆT",
     category: "tram-bien-ap",
+    image: "/images/projects/Quat_dong.jpg",
   },
   {
     id: 20,
@@ -256,6 +259,7 @@ export const projects: Project[] = [
     investor: "Công Ty CP Tư vấn Phát triển Năng lượng Tây Bắc",
     contractor: "CÔNG TY CP TƯ VẤN PHÁT TRIỂN NĂNG LƯỢNG TÂY BẮC",
     category: "nha-may-dien",
+    image: "/images/projects/Nam_chim_2.jpg",
   },
   {
     id: 21,
@@ -280,6 +284,7 @@ export const projects: Project[] = [
     investor: "Công ty Cổ phần Xi măng Đại Dương",
     contractor: "CÔNG TY CP XI MĂNG ĐẠI DƯƠNG",
     category: "tram-bien-ap",
+    image: "/images/projects/XM_Dai_duong.jpg",
   },
   {
     id: 23,
@@ -292,6 +297,7 @@ export const projects: Project[] = [
     investor: "Công ty TNHH Cơ điện FIS",
     contractor: "CÔNG TY TNHH CƠ ĐIỆN FIS",
     category: "tram-bien-ap",
+    image: "/images/projects/Troi.jpg",
   },
   {
     id: 24,
@@ -304,6 +310,7 @@ export const projects: Project[] = [
     investor: "Công ty Cổ phần Thủy điện Nậm Pia",
     contractor: "CÔNG TY CỔ PHẦN THỦY ĐIỆN NẬM PIA",
     category: "nha-may-dien",
+    image: "/images/projects/HMI_Nam_pia.jpg",
   },
   {
     id: 25,
@@ -331,6 +338,7 @@ export const projects: Project[] = [
     investor: "Công ty CP Đầu tư và Phát triển Điện Tây Bắc",
     contractor: "CÔNG TY CP ĐẦU TƯ VÀ PHÁT TRIỂN ĐIỆN TÂY BẮC",
     category: "nha-may-dien",
+    image: "/images/projects/Nam_cong.jpg",
   },
   {
     id: 27,
@@ -356,6 +364,7 @@ export const projects: Project[] = [
     investor: "Công ty CP Đầu tư Năng lượng VIDIFI",
     contractor: "CÔNG TY CP ĐẦU TƯ NĂNG LƯỢNG VIDIFI",
     category: "nha-may-dien",
+    image: "/images/projects/Suoi_chan_2.jpg",
   },
   {
     id: 29,
@@ -380,6 +389,7 @@ export const projects: Project[] = [
     investor: "Công ty CP Xây dựng và Thương mại Lam Sơn",
     contractor: "CÔNG TY CP XÂY DỰNG VÀ THƯƠNG MẠI LAM SƠN",
     category: "nha-may-dien",
+    image: "/images/projects/PLC_Chieng_cong_2.jpg",
   },
   {
     id: 31,
