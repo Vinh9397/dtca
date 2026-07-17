@@ -42,13 +42,13 @@ values
 
 insert into public.partners (name, logo_url, sort_order)
 values
-  ('Phoenix Contact', '/images/partners/phoenix-contact.svg', 1),
-  ('Siemens', '/images/partners/siemens.svg', 2),
-  ('Mitsubishi Electric', '/images/partners/mitsubishi.svg', 3),
-  ('ABB', '/images/partners/abb.svg', 4),
-  ('Sick', '/images/partners/sick.svg', 5),
-  ('Taikai', '/images/partners/taikai.svg', 6),
-  ('Chint', '/images/partners/chint.svg', 7);
+  ('Phoenix Contact', '/images/partners/Phoenix_contact.jpeg', 1),
+  ('Siemens', '/images/partners/Siemens.jpg', 2),
+  ('Mitsubishi Electric', '/images/partners/Mitsubishi.png', 3),
+  ('ABB', '/images/partners/ABB.png', 4),
+  ('Fanox', '/images/partners/Fanox.jpg', 5),
+  ('Robustel', '/images/partners/Robustel.webp', 6),
+  ('Schneider Electric', '/images/partners/Schneider.jpg', 7);
 
 insert into public.posts (slug, title_vi, title_en, excerpt_vi, excerpt_en, content_vi, content_en, cover_image, category, status, published_at)
 values
