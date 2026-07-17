@@ -13,7 +13,7 @@ export const projects: Project[] = [
     investor: "Công ty CP Thủy điện Sông Chảy 5",
     contractor: "CÔNG TY CP THỦY ĐIỆN SÔNG CHẢY 5",
     category: "nha-may-dien",
-    image: "/images/projects/Song chay 5.jpg",
+    image: "/images/projects/Song_chay_5.jpg",
   },
   {
     id: 2,
@@ -26,6 +26,7 @@ export const projects: Project[] = [
     investor: "Công ty CP Thủy điện Hoàng Anh Thanh Hóa",
     contractor: "CÔNG TY CP KỸ THUẬT TỰ ĐỘNG HÓA IOT",
     category: "nha-may-dien",
+    image: "/images/projects/Song chay 5.jpg",
   },
   {
     id: 3,
@@ -191,7 +192,7 @@ export const projects: Project[] = [
     investor: "Công ty CP Xi măng Thành Thắng",
     contractor: "CÔNG TY CỔ PHẦN XI MĂNG THÀNH THẮNG",
     category: "san-xuat-cong-nghiep",
-    image: "/images/projects/Thanh_thang_1.jpg",
+    image: "/images/projects/Thanh_thang_1.1.jpg",
   },
   {
     id: 16,
@@ -340,6 +341,7 @@ export const projects: Project[] = [
     investor: "Công ty CP Thủy điện Xuân Minh",
     contractor: "CÔNG TY CP THỦY ĐIỆN XUÂN MINH",
     category: "nha-may-dien",
+    image: "/images/projects/Xuan_minh.jpg",
   },
   {
     id: 28,
