@@ -13,6 +13,7 @@ export const projects: Project[] = [
     investor: "Công ty CP Thủy điện Sông Chảy 5",
     contractor: "CÔNG TY CP THỦY ĐIỆN SÔNG CHẢY 5",
     category: "nha-may-dien",
+    image: "/images/projects/Song chay 5.jpg",
   },
   {
     id: 2,
@@ -73,6 +74,7 @@ export const projects: Project[] = [
     investor: "Công ty Cổ phần Tân Hà Kiều",
     contractor: "CÔNG TY CP ĐẦU TƯ VÀ XÂY LẮP ĐÔNG ĐÔ",
     category: "tram-bien-ap",
+    image: "/images/projects/SIC_1.jpg",
   },
   {
     id: 7,
@@ -85,6 +87,7 @@ export const projects: Project[] = [
     investor: "Công ty Cổ phần Tân Hà Kiều",
     contractor: "CÔNG TY CP ĐẦU TƯ VÀ XÂY LẮP ĐÔNG ĐÔ",
     category: "tram-bien-ap",
+    image: "/images/projects/SIC_2.jpg",
   },
   {
     id: 8,
@@ -97,6 +100,7 @@ export const projects: Project[] = [
     investor: "Công ty TNHH Điện nước Việt Nam",
     contractor: "CÔNG TY TNHH MTV KHAI THÁC CÔNG TRÌNH THỦY LỢI BẮC NAM HÀ",
     category: "san-xuat-cong-nghiep",
+    image: "/images/projects/Vinh_Tri_1.png",
   },
   {
     id: 9,
@@ -111,6 +115,7 @@ export const projects: Project[] = [
     investor: "Công ty TNHH Điện nước Việt Nam",
     contractor: "CÔNG TY TNHH MTV KHAI THÁC CÔNG TRÌNH THỦY LỢI BẮC NAM HÀ",
     category: "san-xuat-cong-nghiep",
+    image: "/images/projects/Vinh_Tri_2.jpg",
   },
   {
     id: 10,
@@ -147,6 +152,7 @@ export const projects: Project[] = [
     investor: "Công ty CP Xi măng Thành Thắng",
     contractor: "CÔNG TY CỔ PHẦN XI MĂNG THÀNH THẮNG",
     category: "san-xuat-cong-nghiep",
+    image: "/images/projects/Thanh_thang_1.jpg",
   },
   {
     id: 13,
@@ -185,6 +191,7 @@ export const projects: Project[] = [
     investor: "Công ty CP Xi măng Thành Thắng",
     contractor: "CÔNG TY CỔ PHẦN XI MĂNG THÀNH THẮNG",
     category: "san-xuat-cong-nghiep",
+    image: "/images/projects/Thanh_thang_1.jpg",
   },
   {
     id: 16,
@@ -383,6 +390,7 @@ export const projects: Project[] = [
     investor: "Công ty Cổ phần Công nghiệp Đại Dương",
     contractor: "CÔNG TY ĐIỆN LỰC HẢI PHÒNG",
     category: "tram-bien-ap",
+    image: "/images/projects/tu_bu.jpg",
   },
   {
     id: 32,
@@ -397,6 +405,7 @@ export const projects: Project[] = [
     investor: "Công ty CP Đầu tư Xây dựng và Thương mại Hà Thao",
     contractor: "CÔNG TY CP ĐẦU TƯ XÂY DỰNG VÀ THƯƠNG MẠI HÀ THAO",
     category: "tram-bien-ap",
+    image: "/images/projects/Thuan_Chau_1.jpg",
   },
   {
     id: 33,
