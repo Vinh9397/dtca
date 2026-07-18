@@ -272,6 +272,7 @@ export const projects: Project[] = [
     investor: "Công ty Cổ phần Thủy điện Quế Phong",
     contractor: "CÔNG TY CỔ PHẦN THỦY ĐIỆN QUẾ PHONG",
     category: "tram-bien-ap",
+    image: "/images/projects/Tap_lo.jpg",
   },
   {
     id: 22,
