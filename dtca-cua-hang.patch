@@ -1,0 +1,1347 @@
+diff --git a/src/app/[locale]/cua-hang/[brand]/page.tsx b/src/app/[locale]/cua-hang/[brand]/page.tsx
+new file mode 100644
+index 0000000..10e4937
+--- /dev/null
++++ b/src/app/[locale]/cua-hang/[brand]/page.tsx
+@@ -0,0 +1,70 @@
++import type { Metadata } from "next";
++import { notFound } from "next/navigation";
++import { getTranslations, setRequestLocale } from "next-intl/server";
++import { Link } from "@/i18n/navigation";
++import { ProductCatalog } from "@/components/ProductCatalog";
++import {
++  getAllBrandSlugs,
++  getBrandBySlug,
++  getProductBrands,
++  getProductsByBrand,
++} from "@/lib/data-access/products";
++
++export async function generateStaticParams() {
++  const brandSlugs = await getAllBrandSlugs();
++  return brandSlugs.map((brand) => ({ brand }));
++}
++
++export async function generateMetadata({
++  params,
++}: {
++  params: Promise<{ locale: string; brand: string }>;
++}): Promise<Metadata> {
++  const { brand: brandSlug } = await params;
++  const brand = await getBrandBySlug(brandSlug);
++  return { title: brand ?? brandSlug };
++}
++
++export default async function StoreBrandPage({
++  params,
++}: {
++  params: Promise<{ locale: string; brand: string }>;
++}) {
++  const { locale, brand: brandSlug } = await params;
++  setRequestLocale(locale);
++
++  const t = await getTranslations("store");
++  const brand = await getBrandBySlug(brandSlug);
++  if (!brand) notFound();
++
++  const [products, brandSummaries] = await Promise.all([
++    getProductsByBrand(brand),
++    getProductBrands(),
++  ]);
++
++  return (
++    <>
++      <section className="bg-navy-900 py-16 text-white sm:py-20">
++        <div className="container-page">
++          <h1 className="max-w-2xl text-3xl font-bold sm:text-4xl">{brand}</h1>
++        </div>
++      </section>
++
++      <section className="py-16 sm:py-20">
++        <div className="container-page">
++          <p className="mb-6 text-sm text-slate-500">
++            <Link href="/" className="hover:text-navy-700">
++              {t("home")}
++            </Link>{" "}
++            /{" "}
++            <Link href={{ pathname: "/cua-hang" }} className="hover:text-navy-700">
++              {t("pageTitle")}
++            </Link>{" "}
++            / <span className="text-navy-800">{brand}</span>
++          </p>
++          <ProductCatalog products={products} brandSummaries={brandSummaries} activeBrand={brand} />
++        </div>
++      </section>
++    </>
++  );
++}
+diff --git a/src/app/[locale]/cua-hang/page.tsx b/src/app/[locale]/cua-hang/page.tsx
+new file mode 100644
+index 0000000..c136154
+--- /dev/null
++++ b/src/app/[locale]/cua-hang/page.tsx
+@@ -0,0 +1,50 @@
++import type { Metadata } from "next";
++import { getTranslations, setRequestLocale } from "next-intl/server";
++import { Link } from "@/i18n/navigation";
++import { ProductCatalog } from "@/components/ProductCatalog";
++import { getProducts, getProductBrands } from "@/lib/data-access/products";
++
++export async function generateMetadata({
++  params,
++}: {
++  params: Promise<{ locale: string }>;
++}): Promise<Metadata> {
++  const { locale } = await params;
++  const t = await getTranslations({ locale, namespace: "store" });
++  return { title: t("pageTitle"), description: t("pageDescription") };
++}
++
++export default async function StorePage({
++  params,
++}: {
++  params: Promise<{ locale: string }>;
++}) {
++  const { locale } = await params;
++  setRequestLocale(locale);
++
++  const t = await getTranslations("store");
++  const [products, brandSummaries] = await Promise.all([getProducts(), getProductBrands()]);
++
++  return (
++    <>
++      <section className="bg-navy-900 py-16 text-white sm:py-20">
++        <div className="container-page">
++          <h1 className="max-w-2xl text-3xl font-bold sm:text-4xl">{t("pageTitle")}</h1>
++          <p className="mt-4 max-w-2xl text-navy-100">{t("pageDescription")}</p>
++        </div>
++      </section>
++
++      <section className="py-16 sm:py-20">
++        <div className="container-page">
++          <p className="mb-6 text-sm text-slate-500">
++            <Link href="/" className="hover:text-navy-700">
++              {t("home")}
++            </Link>{" "}
++            / <span className="text-navy-800">{t("pageTitle")}</span>
++          </p>
++          <ProductCatalog products={products} brandSummaries={brandSummaries} />
++        </div>
++      </section>
++    </>
++  );
++}
+diff --git a/src/app/admin/(protected)/san-pham/[id]/page.tsx b/src/app/admin/(protected)/san-pham/[id]/page.tsx
+new file mode 100644
+index 0000000..3807c19
+--- /dev/null
++++ b/src/app/admin/(protected)/san-pham/[id]/page.tsx
+@@ -0,0 +1,29 @@
++import { notFound } from "next/navigation";
++import { createClient } from "@/lib/supabase/server";
++import { updateProduct } from "@/lib/supabase/product-actions";
++import { ProductForm } from "@/components/admin/ProductForm";
++
++export const metadata = { title: "Sửa sản phẩm" };
++
++export default async function EditProductPage({
++  params,
++}: {
++  params: Promise<{ id: string }>;
++}) {
++  const { id } = await params;
++  const supabase = await createClient();
++  const { data: product } = await supabase.from("products").select("*").eq("id", id).single();
++
++  if (!product) notFound();
++
++  const updateWithId = updateProduct.bind(null, Number(id));
++
++  return (
++    <div>
++      <h1 className="text-xl font-bold text-navy-950">Sửa sản phẩm</h1>
++      <div className="mt-6">
++        <ProductForm action={updateWithId} defaultValues={product} />
++      </div>
++    </div>
++  );
++}
+diff --git a/src/app/admin/(protected)/san-pham/new/page.tsx b/src/app/admin/(protected)/san-pham/new/page.tsx
+new file mode 100644
+index 0000000..770e0cf
+--- /dev/null
++++ b/src/app/admin/(protected)/san-pham/new/page.tsx
+@@ -0,0 +1,15 @@
++import { ProductForm } from "@/components/admin/ProductForm";
++import { createProduct } from "@/lib/supabase/product-actions";
++
++export const metadata = { title: "Thêm sản phẩm" };
++
++export default function NewProductPage() {
++  return (
++    <div>
++      <h1 className="text-xl font-bold text-navy-950">Thêm sản phẩm</h1>
++      <div className="mt-6">
++        <ProductForm action={createProduct} />
++      </div>
++    </div>
++  );
++}
+diff --git a/src/app/admin/(protected)/san-pham/page.tsx b/src/app/admin/(protected)/san-pham/page.tsx
+new file mode 100644
+index 0000000..e1302b7
+--- /dev/null
++++ b/src/app/admin/(protected)/san-pham/page.tsx
+@@ -0,0 +1,77 @@
++import Link from "next/link";
++import { createClient } from "@/lib/supabase/server";
++import { deleteProduct } from "@/lib/supabase/product-actions";
++
++export const metadata = { title: "Sản phẩm" };
++
++export default async function AdminProductsPage() {
++  const supabase = await createClient();
++  const { data: products } = await supabase
++    .from("products")
++    .select("*")
++    .order("sort_order", { ascending: false });
++
++  return (
++    <div>
++      <div className="flex items-center justify-between">
++        <h1 className="text-xl font-bold text-navy-950">Sản phẩm ({products?.length ?? 0})</h1>
++        <Link
++          href="/admin/san-pham/new"
++          className="rounded-md bg-navy-800 px-4 py-2 text-sm font-semibold text-white hover:bg-navy-900"
++        >
++          + Thêm sản phẩm
++        </Link>
++      </div>
++
++      <div className="mt-6 overflow-hidden rounded-lg border border-navy-100 bg-white">
++        <table className="w-full text-left text-sm">
++          <thead className="bg-navy-50 text-navy-700">
++            <tr>
++              <th className="px-4 py-3 font-semibold">Tên sản phẩm</th>
++              <th className="px-4 py-3 font-semibold">Thương hiệu</th>
++              <th className="px-4 py-3 font-semibold">Danh mục con</th>
++              <th className="px-4 py-3 font-semibold">Nhãn</th>
++              <th className="px-4 py-3 font-semibold" />
++            </tr>
++          </thead>
++          <tbody className="divide-y divide-navy-100">
++            {(products ?? []).map((product) => (
++              <tr key={product.id}>
++                <td className="max-w-md px-4 py-3 text-navy-900">{product.name_vi}</td>
++                <td className="px-4 py-3 text-slate-600">{product.brand}</td>
++                <td className="px-4 py-3 text-slate-600">{product.subcategory ?? "—"}</td>
++                <td className="px-4 py-3 text-slate-600">{product.badge ?? "—"}</td>
++                <td className="px-4 py-3 text-right">
++                  <div className="flex justify-end gap-3">
++                    <Link
++                      href={`/admin/san-pham/${product.id}`}
++                      className="font-semibold text-navy-700 hover:text-navy-900"
++                    >
++                      Sửa
++                    </Link>
++                    <form
++                      action={async () => {
++                        "use server";
++                        await deleteProduct(product.id);
++                      }}
++                    >
++                      <button type="submit" className="font-semibold text-accent-red hover:opacity-80">
++                        Xóa
++                      </button>
++                    </form>
++                  </div>
++                </td>
++              </tr>
++            ))}
++          </tbody>
++        </table>
++        {(products ?? []).length === 0 ? (
++          <p className="p-6 text-sm text-slate-500">
++            Chưa có sản phẩm nào trong Supabase. Chạy `supabase/seed-products.sql` để nhập sản phẩm
++            mẫu, hoặc bấm &quot;Thêm sản phẩm&quot; để tạo mới.
++          </p>
++        ) : null}
++      </div>
++    </div>
++  );
++}
+diff --git a/src/app/sitemap.ts b/src/app/sitemap.ts
+index 83f9fce..3e4e67e 100644
+--- a/src/app/sitemap.ts
++++ b/src/app/sitemap.ts
+@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
+ import { routing } from "@/i18n/routing";
+ import { getPathname } from "@/i18n/navigation";
+ import { getPosts } from "@/lib/data-access/posts";
++import { getAllBrandSlugs } from "@/lib/data-access/products";
+ 
+ const staticPathnames = [
+   "/",
+@@ -9,6 +10,7 @@ const staticPathnames = [
+   "/san-pham-dich-vu/scada-dcs",
+   "/san-pham-dich-vu/he-thong-thong-tin",
+   "/san-pham-dich-vu/thiet-bi-nhat-thu",
++  "/cua-hang",
+   "/giai-phap",
+   "/du-an",
+   "/tin-tuc",
+@@ -19,6 +21,7 @@ const staticPathnames = [
+ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://dtca.vn";
+   const posts = await getPosts();
++  const brandSlugs = await getAllBrandSlugs();
+ 
+   const staticEntries: MetadataRoute.Sitemap = staticPathnames.map((pathname) => ({
+     url: `${siteUrl}${getPathname({ locale: routing.defaultLocale, href: pathname })}`,
+@@ -51,5 +54,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+     },
+   }));
+ 
+-  return [...staticEntries, ...postEntries];
++  const brandEntries: MetadataRoute.Sitemap = brandSlugs.map((brand) => ({
++    url: `${siteUrl}${getPathname({
++      locale: routing.defaultLocale,
++      href: { pathname: "/cua-hang/[brand]", params: { brand } },
++    })}`,
++    alternates: {
++      languages: Object.fromEntries(
++        routing.locales.map((locale) => [
++          locale,
++          `${siteUrl}${getPathname({
++            locale,
++            href: { pathname: "/cua-hang/[brand]", params: { brand } },
++          })}`,
++        ])
++      ),
++    },
++  }));
++
++  return [...staticEntries, ...postEntries, ...brandEntries];
+ }
+diff --git a/src/components/ProductCard.tsx b/src/components/ProductCard.tsx
+new file mode 100644
+index 0000000..246444f
+--- /dev/null
++++ b/src/components/ProductCard.tsx
+@@ -0,0 +1,57 @@
++import Image from "next/image";
++import { useLocale, useTranslations } from "next-intl";
++import { Link } from "@/i18n/navigation";
++import type { Product } from "@/types";
++
++const badgeLabelKey: Record<NonNullable<Product["badge"]>, string> = {
++  "best-sale": "badgeBestSale",
++  new: "badgeNew",
++  featured: "badgeFeatured",
++};
++
++export function ProductCard({ product }: { product: Product }) {
++  const locale = useLocale();
++  const t = useTranslations("store");
++  const name = locale === "vi" ? product.nameVi : product.nameEn;
++
++  return (
++    <article className="group flex flex-col overflow-hidden rounded-lg border border-navy-100 bg-white shadow-sm transition-shadow hover:shadow-md">
++      <div className="relative aspect-square w-full overflow-hidden bg-navy-50">
++        {product.image ? (
++          <Image
++            src={product.image}
++            alt={name}
++            fill
++            className="object-contain p-6 transition-transform duration-300 group-hover:scale-105"
++            sizes="(min-width: 1024px) 260px, 50vw"
++          />
++        ) : (
++          <div className="flex h-full w-full items-center justify-center text-navy-300">
++            <svg viewBox="0 0 48 48" className="h-14 w-14" fill="none" stroke="currentColor" strokeWidth="1.5">
++              <rect x="8" y="12" width="32" height="24" rx="2" strokeLinejoin="round" />
++              <path d="M8 30l9-9 8 8 7-7 8 8" strokeLinecap="round" strokeLinejoin="round" />
++              <circle cx="16" cy="19" r="2.4" />
++            </svg>
++          </div>
++        )}
++        {product.badge ? (
++          <span className="absolute left-3 top-3 flex h-11 w-11 items-center justify-center rounded-full bg-navy-900 text-center text-[10px] font-bold leading-tight text-white shadow-sm">
++            {t(badgeLabelKey[product.badge])}
++          </span>
++        ) : null}
++      </div>
++      <div className="flex flex-1 flex-col gap-2 p-4 text-center">
++        <h3 className="text-sm font-semibold leading-snug text-navy-950">{name}</h3>
++        <p className="text-xs font-medium uppercase tracking-wide text-navy-500">{product.brand}</p>
++        <div className="mt-auto flex flex-col gap-2 pt-2">
++          <Link
++            href={{ pathname: "/lien-he" }}
++            className="rounded-md bg-navy-800 px-4 py-2 text-xs font-semibold text-white hover:bg-navy-900"
++          >
++            {t("requestQuote")}
++          </Link>
++        </div>
++      </div>
++    </article>
++  );
++}
+diff --git a/src/components/ProductCatalog.tsx b/src/components/ProductCatalog.tsx
+new file mode 100644
+index 0000000..9ff7264
+--- /dev/null
++++ b/src/components/ProductCatalog.tsx
+@@ -0,0 +1,159 @@
++"use client";
++
++import { useMemo, useState } from "react";
++import { useLocale, useTranslations } from "next-intl";
++import { Link } from "@/i18n/navigation";
++import { ProductCard } from "@/components/ProductCard";
++import { slugify } from "@/lib/slug";
++import type { Product } from "@/types";
++import type { ProductBrandSummary } from "@/lib/data-access/products";
++
++type SortOption = "default" | "name-asc" | "name-desc";
++
++export function ProductCatalog({
++  products,
++  brandSummaries,
++  activeBrand,
++}: {
++  products: Product[];
++  brandSummaries: ProductBrandSummary[];
++  /** Real brand name of the active category page, or undefined on the "all products" page. */
++  activeBrand?: string;
++}) {
++  const t = useTranslations("store");
++  const locale = useLocale();
++  const [sort, setSort] = useState<SortOption>("default");
++
++  const sorted = useMemo(() => {
++    if (sort === "default") return products;
++    const list = [...products];
++    list.sort((a, b) => {
++      const nameA = locale === "vi" ? a.nameVi : a.nameEn;
++      const nameB = locale === "vi" ? b.nameVi : b.nameEn;
++      return sort === "name-asc" ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
++    });
++    return list;
++  }, [products, sort, locale]);
++
++  const totalCount = brandSummaries.reduce((sum, b) => sum + b.count, 0);
++
++  return (
++    <div className="grid gap-8 lg:grid-cols-[260px_1fr]">
++      <aside>
++        <h2 className="text-sm font-bold uppercase tracking-wide text-navy-950">
++          {t("categoriesTitle")}
++        </h2>
++        <div className="mt-3 h-px w-10 bg-accent-red" />
++        <nav className="mt-4 space-y-1 text-sm">
++          <Link
++            href={{ pathname: "/cua-hang" }}
++            className={`flex items-center justify-between rounded-md px-2 py-2 font-semibold ${
++              !activeBrand ? "text-accent-red" : "text-navy-800 hover:text-accent-red"
++            }`}
++          >
++            <span>{t("allBrands")}</span>
++            <span className="text-xs font-normal text-slate-400">({totalCount})</span>
++          </Link>
++          {brandSummaries.map((summary) => (
++            <BrandItem
++              key={summary.brand}
++              summary={summary}
++              isActive={activeBrand === summary.brand}
++            />
++          ))}
++        </nav>
++      </aside>
++
++      <div>
++        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-navy-100 pb-4">
++          <p className="text-sm text-slate-600">
++            {t("showingResults", { count: sorted.length })}
++          </p>
++          <label className="flex items-center gap-2 text-sm">
++            <span className="text-slate-500">{t("sortLabel")}</span>
++            <select
++              value={sort}
++              onChange={(e) => setSort(e.target.value as SortOption)}
++              className="rounded-md border border-navy-200 px-3 py-1.5 text-sm text-navy-800"
++            >
++              <option value="default">{t("sortDefault")}</option>
++              <option value="name-asc">{t("sortNameAsc")}</option>
++              <option value="name-desc">{t("sortNameDesc")}</option>
++            </select>
++          </label>
++        </div>
++
++        {sorted.length > 0 ? (
++          <div className="mt-6 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
++            {sorted.map((product) => (
++              <ProductCard key={product.id} product={product} />
++            ))}
++          </div>
++        ) : (
++          <p className="mt-8 text-sm text-slate-500">{t("empty")}</p>
++        )}
++      </div>
++    </div>
++  );
++}
++
++function BrandItem({
++  summary,
++  isActive,
++}: {
++  summary: ProductBrandSummary;
++  isActive: boolean;
++}) {
++  const brandSlug = slugify(summary.brand);
++  const hasSubcategories = summary.subcategories.length > 0;
++
++  if (!hasSubcategories) {
++    return (
++      <Link
++        href={{ pathname: "/cua-hang/[brand]", params: { brand: brandSlug } }}
++        className={`flex items-center justify-between rounded-md px-2 py-2 ${
++          isActive ? "font-semibold text-accent-red" : "text-navy-800 hover:text-accent-red"
++        }`}
++      >
++        <span>{summary.brand}</span>
++        <span className="text-xs font-normal text-slate-400">({summary.count})</span>
++      </Link>
++    );
++  }
++
++  return (
++    <details className="group/details" open={isActive}>
++      <summary className="flex cursor-pointer list-none items-center justify-between rounded-md px-2 py-2 marker:content-none">
++        <Link
++          href={{ pathname: "/cua-hang/[brand]", params: { brand: brandSlug } }}
++          className={`flex-1 ${
++            isActive ? "font-semibold text-accent-red" : "text-navy-800 hover:text-accent-red"
++          }`}
++        >
++          {summary.brand}
++        </Link>
++        <span className="flex items-center gap-1 text-xs font-normal text-slate-400">
++          ({summary.count})
++          <svg
++            viewBox="0 0 20 20"
++            fill="currentColor"
++            className="h-3.5 w-3.5 transition-transform group-open/details:rotate-180"
++          >
++            <path
++              fillRule="evenodd"
++              d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
++              clipRule="evenodd"
++            />
++          </svg>
++        </span>
++      </summary>
++      <div className="ml-3 space-y-1 border-l border-navy-100 pl-3">
++        {summary.subcategories.map((sub) => (
++          <p key={sub.name} className="px-2 py-1.5 text-xs text-slate-600">
++            {sub.name} <span className="text-slate-400">({sub.count})</span>
++          </p>
++        ))}
++      </div>
++    </details>
++  );
++}
+diff --git a/src/components/admin/AdminShell.tsx b/src/components/admin/AdminShell.tsx
+index b3d1acf..9a3cef3 100644
+--- a/src/components/admin/AdminShell.tsx
++++ b/src/components/admin/AdminShell.tsx
+@@ -3,6 +3,7 @@ import { signOut } from "@/lib/supabase/auth-actions";
+ 
+ const navItems = [
+   { href: "/admin", label: "Tổng quan" },
++  { href: "/admin/san-pham", label: "Sản phẩm" },
+   { href: "/admin/du-an", label: "Dự án" },
+   { href: "/admin/tin-tuc", label: "Tin tức" },
+ ];
+diff --git a/src/components/admin/ProductForm.tsx b/src/components/admin/ProductForm.tsx
+new file mode 100644
+index 0000000..93a5402
+--- /dev/null
++++ b/src/components/admin/ProductForm.tsx
+@@ -0,0 +1,150 @@
++const badgeOptions: { value: string; label: string }[] = [
++  { value: "", label: "Không có" },
++  { value: "best-sale", label: "Best sale" },
++  { value: "new", label: "Mới" },
++  { value: "featured", label: "Nổi bật" },
++];
++
++interface ProductFormValues {
++  name_vi: string;
++  name_en: string;
++  slug: string;
++  brand: string;
++  subcategory?: string | null;
++  description_vi?: string | null;
++  description_en?: string | null;
++  badge?: string | null;
++  image_url?: string | null;
++}
++
++export function ProductForm({
++  action,
++  defaultValues,
++}: {
++  action: (formData: FormData) => void;
++  defaultValues?: ProductFormValues;
++}) {
++  return (
++    <form action={action} className="max-w-3xl space-y-5">
++      <div className="grid gap-4 sm:grid-cols-2">
++        <Field label="Tên sản phẩm (VI)" name="nameVi" defaultValue={defaultValues?.name_vi} required />
++        <Field label="Name (EN)" name="nameEn" defaultValue={defaultValues?.name_en} required />
++      </div>
++      <div className="grid gap-4 sm:grid-cols-2">
++        <Field
++          label="Slug (để trống để tự sinh từ tên VI)"
++          name="slug"
++          defaultValue={defaultValues?.slug}
++        />
++        <Field label="Thương hiệu / Hãng" name="brand" defaultValue={defaultValues?.brand} required />
++      </div>
++      <div className="grid gap-4 sm:grid-cols-2">
++        <Field
++          label="Danh mục con (tuỳ chọn)"
++          name="subcategory"
++          defaultValue={defaultValues?.subcategory ?? ""}
++        />
++        <div>
++          <label className="text-sm font-medium text-navy-800">Nhãn hiển thị</label>
++          <select
++            name="badge"
++            defaultValue={defaultValues?.badge ?? ""}
++            className="mt-1.5 w-full rounded-md border border-navy-200 px-3 py-2 text-sm"
++          >
++            {badgeOptions.map((opt) => (
++              <option key={opt.value} value={opt.value}>
++                {opt.label}
++              </option>
++            ))}
++          </select>
++        </div>
++      </div>
++      <div className="grid gap-4 sm:grid-cols-2">
++        <TextArea
++          label="Mô tả ngắn (VI)"
++          name="descriptionVi"
++          defaultValue={defaultValues?.description_vi ?? ""}
++        />
++        <TextArea
++          label="Description (EN)"
++          name="descriptionEn"
++          defaultValue={defaultValues?.description_en ?? ""}
++        />
++      </div>
++      <div>
++        <label className="text-sm font-medium text-navy-800">Hình ảnh sản phẩm</label>
++        {defaultValues?.image_url ? (
++          <p className="mt-1 text-xs text-slate-500">Ảnh hiện tại đã lưu — chọn ảnh mới để thay thế.</p>
++        ) : null}
++        <input
++          type="file"
++          name="image"
++          accept="image/*"
++          className="mt-1.5 w-full rounded-md border border-navy-200 px-3 py-2 text-sm"
++        />
++      </div>
++
++      <button
++        type="submit"
++        className="rounded-md bg-navy-800 px-5 py-2.5 text-sm font-semibold text-white hover:bg-navy-900"
++      >
++        Lưu sản phẩm
++      </button>
++    </form>
++  );
++}
++
++function Field({
++  label,
++  name,
++  defaultValue,
++  type = "text",
++  required,
++}: {
++  label: string;
++  name: string;
++  defaultValue?: string | number;
++  type?: string;
++  required?: boolean;
++}) {
++  return (
++    <div>
++      <label htmlFor={name} className="text-sm font-medium text-navy-800">
++        {label}
++      </label>
++      <input
++        id={name}
++        name={name}
++        type={type}
++        defaultValue={defaultValue}
++        required={required}
++        className="mt-1.5 w-full rounded-md border border-navy-200 px-3 py-2 text-sm"
++      />
++    </div>
++  );
++}
++
++function TextArea({
++  label,
++  name,
++  defaultValue,
++}: {
++  label: string;
++  name: string;
++  defaultValue?: string;
++}) {
++  return (
++    <div>
++      <label htmlFor={name} className="text-sm font-medium text-navy-800">
++        {label}
++      </label>
++      <textarea
++        id={name}
++        name={name}
++        rows={3}
++        defaultValue={defaultValue}
++        className="mt-1.5 w-full rounded-md border border-navy-200 px-3 py-2 text-sm"
++      />
++    </div>
++  );
++}
+diff --git a/src/components/layout/Header.tsx b/src/components/layout/Header.tsx
+index 36a59f5..badc919 100644
+--- a/src/components/layout/Header.tsx
++++ b/src/components/layout/Header.tsx
+@@ -19,6 +19,7 @@ export function Header() {
+   ];
+ 
+   const navLinks = [
++    { href: "/cua-hang" as const, label: t("store") },
+     { href: "/giai-phap" as const, label: t("solutions") },
+     { href: "/du-an" as const, label: t("projects") },
+     { href: "/tin-tuc" as const, label: t("news") },
+diff --git a/src/i18n/routing.ts b/src/i18n/routing.ts
+index 28576cf..952da92 100644
+--- a/src/i18n/routing.ts
++++ b/src/i18n/routing.ts
+@@ -25,6 +25,14 @@ export const routing = defineRouting({
+       vi: "/giai-phap",
+       en: "/solutions",
+     },
++    "/cua-hang": {
++      vi: "/cua-hang",
++      en: "/store",
++    },
++    "/cua-hang/[brand]": {
++      vi: "/cua-hang/[brand]",
++      en: "/store/[brand]",
++    },
+     "/du-an": {
+       vi: "/du-an",
+       en: "/projects",
+diff --git a/src/lib/data-access/products.ts b/src/lib/data-access/products.ts
+new file mode 100644
+index 0000000..33d5ece
+--- /dev/null
++++ b/src/lib/data-access/products.ts
+@@ -0,0 +1,100 @@
++import { createClient } from "@/lib/supabase/server";
++import { isSupabaseConfigured } from "./config";
++import { products as fallbackProducts } from "@/lib/data/products";
++import { slugify } from "@/lib/slug";
++import type { Product } from "@/types";
++
++interface ProductRow {
++  id: number;
++  name_vi: string;
++  name_en: string;
++  slug: string;
++  brand: string;
++  subcategory: string | null;
++  description_vi: string | null;
++  description_en: string | null;
++  image_url: string | null;
++  badge: Product["badge"] | null;
++  sort_order: number;
++}
++
++function mapRow(row: ProductRow): Product {
++  return {
++    id: row.id,
++    nameVi: row.name_vi,
++    nameEn: row.name_en,
++    slug: row.slug,
++    brand: row.brand,
++    subcategory: row.subcategory ?? undefined,
++    descriptionVi: row.description_vi ?? undefined,
++    descriptionEn: row.description_en ?? undefined,
++    image: row.image_url ?? undefined,
++    badge: row.badge ?? undefined,
++    sortOrder: row.sort_order,
++  };
++}
++
++export async function getProducts(): Promise<Product[]> {
++  if (!isSupabaseConfigured()) return fallbackProducts;
++
++  const supabase = await createClient();
++  const { data, error } = await supabase
++    .from("products")
++    .select("*")
++    .order("sort_order", { ascending: false });
++
++  if (error || !data || data.length === 0) return fallbackProducts;
++  return (data as ProductRow[]).map(mapRow);
++}
++
++export async function getProductBySlug(slug: string): Promise<Product | undefined> {
++  const list = await getProducts();
++  return list.find((p) => p.slug === slug);
++}
++
++export async function getProductsByBrand(brand: string): Promise<Product[]> {
++  const list = await getProducts();
++  return list.filter((p) => brand === "all" || p.brand === brand);
++}
++
++/** Resolves the real brand name from a URL-friendly slug, e.g. "phoenix-contact" -> "Phoenix Contact". */
++export async function getBrandBySlug(brandSlug: string): Promise<string | undefined> {
++  const list = await getProducts();
++  const brands = Array.from(new Set(list.map((p) => p.brand)));
++  return brands.find((brand) => slugify(brand) === brandSlug);
++}
++
++export async function getAllBrandSlugs(): Promise<string[]> {
++  const list = await getProducts();
++  return Array.from(new Set(list.map((p) => slugify(p.brand))));
++}
++
++export interface ProductBrandSummary {
++  brand: string;
++  count: number;
++  subcategories: { name: string; count: number }[];
++}
++
++export async function getProductBrands(): Promise<ProductBrandSummary[]> {
++  const list = await getProducts();
++  const map = new Map<string, ProductBrandSummary>();
++
++  for (const product of list) {
++    if (!map.has(product.brand)) {
++      map.set(product.brand, { brand: product.brand, count: 0, subcategories: [] });
++    }
++    const entry = map.get(product.brand)!;
++    entry.count += 1;
++
++    if (product.subcategory) {
++      const sub = entry.subcategories.find((s) => s.name === product.subcategory);
++      if (sub) {
++        sub.count += 1;
++      } else {
++        entry.subcategories.push({ name: product.subcategory, count: 1 });
++      }
++    }
++  }
++
++  return Array.from(map.values()).sort((a, b) => a.brand.localeCompare(b.brand));
++}
+diff --git a/src/lib/data/products.ts b/src/lib/data/products.ts
+new file mode 100644
+index 0000000..db34954
+--- /dev/null
++++ b/src/lib/data/products.ts
+@@ -0,0 +1,164 @@
++import type { Product } from "@/types";
++
++// Dữ liệu mẫu — hiển thị khi chưa cấu hình Supabase.
++// Quản trị viên có thể thêm/sửa/xóa sản phẩm thật tại /admin/san-pham sau khi kết nối Supabase.
++export const products: Product[] = [
++  {
++    id: 1,
++    nameVi: "Bộ nguồn DC 24V công nghiệp",
++    nameEn: "Industrial 24V DC Power Supply",
++    slug: "bo-nguon-dc-24v-cong-nghiep",
++    brand: "Phoenix Contact",
++    subcategory: "Bộ nguồn",
++    descriptionVi: "Bộ nguồn ổn định 24VDC cho tủ điều khiển và hệ thống tự động hóa.",
++    descriptionEn: "Stable 24VDC power supply for control cabinets and automation systems.",
++    badge: "best-sale",
++    sortOrder: 100,
++  },
++  {
++    id: 2,
++    nameVi: "Rơ le trung gian công nghiệp",
++    nameEn: "Industrial Interface Relay",
++    slug: "role-trung-gian-cong-nghiep",
++    brand: "Phoenix Contact",
++    subcategory: "Rơ le",
++    descriptionVi: "Rơ le trung gian cách ly tín hiệu điều khiển, độ tin cậy cao.",
++    descriptionEn: "Interface relay for control signal isolation, high reliability.",
++    sortOrder: 90,
++  },
++  {
++    id: 3,
++    nameVi: "PLCnext Controller",
++    nameEn: "PLCnext Controller",
++    slug: "plcnext-controller",
++    brand: "Phoenix Contact",
++    subcategory: "Controller",
++    descriptionVi: "Bộ điều khiển mở, hỗ trợ PROFINET, ứng dụng trong hệ thống tự động hóa quan trọng.",
++    descriptionEn: "Open controller platform supporting PROFINET for critical automation systems.",
++    badge: "featured",
++    sortOrder: 85,
++  },
++  {
++    id: 4,
++    nameVi: "Switch mạng công nghiệp 8 cổng",
++    nameEn: "8-Port Industrial Ethernet Switch",
++    slug: "switch-mang-cong-nghiep-8-cong",
++    brand: "Atop Technologies",
++    subcategory: "Switch",
++    descriptionVi: "Switch Ethernet công nghiệp 8 cổng, chịu nhiệt độ khắc nghiệt.",
++    descriptionEn: "8-port industrial Ethernet switch built for harsh environments.",
++    badge: "best-sale",
++    sortOrder: 80,
++  },
++  {
++    id: 5,
++    nameVi: "Bộ chuyển đổi giao thức Modbus RTU sang TCP",
++    nameEn: "Modbus RTU to TCP Protocol Gateway",
++    slug: "bo-chuyen-doi-modbus-rtu-sang-tcp",
++    brand: "Atop Technologies",
++    subcategory: "Protocol Gateway",
++    descriptionVi: "Chuyển đổi giao thức Modbus RTU sang Modbus TCP/IP cho hệ thống SCADA.",
++    descriptionEn: "Converts Modbus RTU to Modbus TCP/IP for SCADA systems.",
++    sortOrder: 70,
++  },
++  {
++    id: 6,
++    nameVi: "Router 4G/5G công nghiệp EX900",
++    nameEn: "EX900 Industrial 4G/5G Router",
++    slug: "router-4g-5g-cong-nghiep-ex900",
++    brand: "Edgeware Technologies",
++    subcategory: "Router 4G/5G",
++    descriptionVi: "Router 4G/5G ứng dụng SCADA điện lực tự động hóa.",
++    descriptionEn: "4G/5G router for power grid SCADA automation applications.",
++    badge: "new",
++    sortOrder: 65,
++  },
++  {
++    id: 7,
++    nameVi: "RTU530 Remote Terminal Unit",
++    nameEn: "RTU530 Remote Terminal Unit",
++    slug: "rtu530-remote-terminal-unit",
++    brand: "Hitachi Energy",
++    subcategory: "RTU",
++    descriptionVi: "Thiết bị đầu cuối RTU cho trạm biến áp và nhà máy điện.",
++    descriptionEn: "Remote terminal unit for substations and power plants.",
++    sortOrder: 60,
++  },
++  {
++    id: 8,
++    nameVi: "Phần mềm MicroSCADA SYS600",
++    nameEn: "MicroSCADA SYS600 Software",
++    slug: "phan-mem-microscada-sys600",
++    brand: "Hitachi Energy",
++    subcategory: "Phần mềm SCADA",
++    descriptionVi: "Phần mềm SCADA vận hành, giám sát hệ thống điện.",
++    descriptionEn: "SCADA software for power system operation and monitoring.",
++    badge: "featured",
++    sortOrder: 55,
++  },
++  {
++    id: 9,
++    nameVi: "Ethernet Switch công nghiệp EtherWAN",
++    nameEn: "EtherWAN Industrial Ethernet Switch",
++    slug: "ethernet-switch-cong-nghiep-etherwan",
++    brand: "Etherwan",
++    subcategory: "Switch",
++    descriptionVi: "Switch mạng công nghiệp bền bỉ, hỗ trợ nhiều cổng quang.",
++    descriptionEn: "Rugged industrial network switch with multiple fiber ports.",
++    sortOrder: 50,
++  },
++  {
++    id: 10,
++    nameVi: "Modem 4G công nghiệp",
++    nameEn: "Industrial 4G Modem",
++    slug: "modem-4g-cong-nghiep",
++    brand: "Etherwan",
++    subcategory: "Modem 4G",
++    descriptionVi: "Modem 4G kết nối SCADA từ xa cho trạm biến áp, nhà máy điện.",
++    descriptionEn: "4G modem for remote SCADA connectivity at substations and power plants.",
++    badge: "best-sale",
++    sortOrder: 45,
++  },
++  {
++    id: 11,
++    nameVi: "Phần mềm ActionNet",
++    nameEn: "ActionNet Software",
++    slug: "phan-mem-actionnet",
++    brand: "Spin Engenharia",
++    subcategory: "Phần mềm",
++    descriptionVi: "Phần mềm giám sát và điều khiển lưới điện phân phối.",
++    descriptionEn: "Monitoring and control software for distribution grids.",
++    sortOrder: 40,
++  },
++  {
++    id: 12,
++    nameVi: "SCADA Data Gateway",
++    nameEn: "SCADA Data Gateway",
++    slug: "scada-data-gateway",
++    brand: "Triangle MicroWorks",
++    subcategory: "Phần mềm",
++    descriptionVi: "Phần mềm SCADA Data Gateway hỗ trợ đa giao thức truyền thông.",
++    descriptionEn: "Multi-protocol SCADA data gateway software.",
++    sortOrder: 35,
++  },
++  {
++    id: 13,
++    nameVi: "Bộ đồng bộ thời gian GPS/GNSS",
++    nameEn: "GPS/GNSS Time Synchronization Unit",
++    slug: "bo-dong-bo-thoi-gian-gps-gnss",
++    brand: "Z - Thiết bị khác",
++    descriptionVi: "Bộ đồng bộ thời gian GPS/GNSS cho hệ thống SCADA trạm biến áp.",
++    descriptionEn: "GPS/GNSS time synchronization unit for substation SCADA systems.",
++    sortOrder: 30,
++  },
++  {
++    id: 14,
++    nameVi: "Thiết bị chống sét lan truyền (SPD)",
++    nameEn: "Surge Protective Device (SPD)",
++    slug: "thiet-bi-chong-set-lan-truyen-spd",
++    brand: "Z - Thiết bị khác",
++    descriptionVi: "Thiết bị chống sét lan truyền bảo vệ tủ điều khiển và thiết bị điện.",
++    descriptionEn: "Surge protective device for control cabinets and electrical equipment.",
++    sortOrder: 25,
++  },
++];
+diff --git a/src/lib/slug.ts b/src/lib/slug.ts
+new file mode 100644
+index 0000000..f5b303a
+--- /dev/null
++++ b/src/lib/slug.ts
+@@ -0,0 +1,11 @@
++const DIACRITIC_MARKS_REGEX = /[̀-ͯ]/g;
++
++export function slugify(input: string): string {
++  return input
++    .normalize("NFD")
++    .replace(DIACRITIC_MARKS_REGEX, "")
++    .replace(/đ/gi, "d")
++    .toLowerCase()
++    .replace(/[^a-z0-9]+/g, "-")
++    .replace(/(^-|-$)/g, "");
++}
+diff --git a/src/lib/supabase/product-actions.ts b/src/lib/supabase/product-actions.ts
+new file mode 100644
+index 0000000..e39c336
+--- /dev/null
++++ b/src/lib/supabase/product-actions.ts
+@@ -0,0 +1,82 @@
++"use server";
++
++import { randomUUID } from "node:crypto";
++import { redirect } from "next/navigation";
++import { revalidatePath } from "next/cache";
++import { createClient } from "@/lib/supabase/server";
++import { slugify } from "@/lib/slug";
++import type { Product } from "@/types";
++
++async function uploadImageIfProvided(
++  formData: FormData,
++  supabase: Awaited<ReturnType<typeof createClient>>
++): Promise<string | undefined> {
++  const file = formData.get("image");
++  if (!(file instanceof File) || file.size === 0) return undefined;
++
++  const ext = file.name.split(".").pop() ?? "jpg";
++  const path = `${randomUUID()}.${ext}`;
++  const { error } = await supabase.storage.from("product-images").upload(path, file, {
++    contentType: file.type,
++    upsert: false,
++  });
++  if (error) throw error;
++
++  const { data } = supabase.storage.from("product-images").getPublicUrl(path);
++  return data.publicUrl;
++}
++
++function readProductFields(formData: FormData) {
++  const nameVi = String(formData.get("nameVi") ?? "");
++  const slugInput = String(formData.get("slug") ?? "");
++  const badge = String(formData.get("badge") ?? "");
++
++  return {
++    name_vi: nameVi,
++    name_en: String(formData.get("nameEn") ?? ""),
++    slug: slugify(slugInput || nameVi),
++    brand: String(formData.get("brand") ?? ""),
++    subcategory: String(formData.get("subcategory") ?? "").trim() || null,
++    description_vi: String(formData.get("descriptionVi") ?? "").trim() || null,
++    description_en: String(formData.get("descriptionEn") ?? "").trim() || null,
++    badge: (badge || null) as Product["badge"] | null,
++  };
++}
++
++export async function createProduct(formData: FormData) {
++  const supabase = await createClient();
++  const imageUrl = await uploadImageIfProvided(formData, supabase);
++
++  const { error } = await supabase.from("products").insert({
++    ...readProductFields(formData),
++    image_url: imageUrl ?? null,
++  });
++  if (error) throw error;
++
++  revalidatePath("/admin/san-pham");
++  redirect("/admin/san-pham");
++}
++
++export async function updateProduct(id: number, formData: FormData) {
++  const supabase = await createClient();
++  const imageUrl = await uploadImageIfProvided(formData, supabase);
++
++  const update: Record<string, unknown> = {
++    ...readProductFields(formData),
++    updated_at: new Date().toISOString(),
++  };
++  if (imageUrl) update.image_url = imageUrl;
++
++  const { error } = await supabase.from("products").update(update).eq("id", id);
++  if (error) throw error;
++
++  revalidatePath("/admin/san-pham");
++  redirect("/admin/san-pham");
++}
++
++export async function deleteProduct(id: number) {
++  const supabase = await createClient();
++  const { error } = await supabase.from("products").delete().eq("id", id);
++  if (error) throw error;
++  revalidatePath("/admin/san-pham");
++}
+diff --git a/src/messages/en.json b/src/messages/en.json
+index b62c7a4..ccc3429 100644
+--- a/src/messages/en.json
++++ b/src/messages/en.json
+@@ -10,6 +10,7 @@
+     "productsScada": "SCADA/DCS Automation Solutions",
+     "productsInfo": "Information Systems",
+     "productsPrimary": "Primary Equipment & Control Cabinets",
++    "store": "Store",
+     "solutions": "Solutions",
+     "projects": "Projects",
+     "news": "News",
+@@ -89,6 +90,25 @@
+       ]
+     }
+   },
++  "store": {
++    "pageTitle": "Store",
++    "pageDescription": "Automation, SCADA and industrial electrical equipment supplied and distributed by DTCA.",
++    "home": "Home",
++    "categoriesTitle": "Product Categories",
++    "allBrands": "All products",
++    "showingResults": "Showing {count} products",
++    "sortLabel": "Sort by",
++    "sortDefault": "Default",
++    "sortNameAsc": "Name A → Z",
++    "sortNameDesc": "Name Z → A",
++    "badgeBestSale": "Best sale",
++    "badgeNew": "New",
++    "badgeFeatured": "Featured",
++    "viewDetails": "View details",
++    "requestQuote": "Request a quote",
++    "empty": "No products in this category yet.",
++    "backToStore": "← Back to Store"
++  },
+   "solutions": {
+     "pageTitle": "Solutions by Industry",
+     "pageDescription": "DTCA accompanies customers across key energy and industrial manufacturing sectors, from hydropower, thermal power and solar power to substations and manufacturing plants.",
+diff --git a/src/messages/vi.json b/src/messages/vi.json
+index 1291ed5..070ca2e 100644
+--- a/src/messages/vi.json
++++ b/src/messages/vi.json
+@@ -10,6 +10,7 @@
+     "productsScada": "Giải pháp tự động hóa SCADA/DCS",
+     "productsInfo": "Hệ thống thông tin",
+     "productsPrimary": "Thiết bị nhất thứ & tủ điều khiển",
++    "store": "Cửa hàng",
+     "solutions": "Giải pháp",
+     "projects": "Dự án",
+     "news": "Tin tức",
+@@ -89,6 +90,25 @@
+       ]
+     }
+   },
++  "store": {
++    "pageTitle": "Cửa hàng",
++    "pageDescription": "Danh mục thiết bị tự động hóa, SCADA và điện công nghiệp do DTCA cung cấp, phân phối chính hãng.",
++    "home": "Trang chủ",
++    "categoriesTitle": "Danh mục sản phẩm",
++    "allBrands": "Tất cả sản phẩm",
++    "showingResults": "Hiển thị {count} sản phẩm",
++    "sortLabel": "Sắp xếp",
++    "sortDefault": "Mặc định",
++    "sortNameAsc": "Tên A → Z",
++    "sortNameDesc": "Tên Z → A",
++    "badgeBestSale": "Best sale",
++    "badgeNew": "Mới",
++    "badgeFeatured": "Nổi bật",
++    "viewDetails": "Xem chi tiết",
++    "requestQuote": "Liên hệ báo giá",
++    "empty": "Chưa có sản phẩm nào trong danh mục này.",
++    "backToStore": "← Về Cửa hàng"
++  },
+   "solutions": {
+     "pageTitle": "Giải pháp theo ngành",
+     "pageDescription": "DTCA đồng hành cùng khách hàng trong các lĩnh vực năng lượng và sản xuất công nghiệp trọng điểm, từ thủy điện, nhiệt điện, điện mặt trời đến trạm biến áp và nhà máy sản xuất.",
+diff --git a/src/types/index.ts b/src/types/index.ts
+index bf2f595..591f9f8 100644
+--- a/src/types/index.ts
++++ b/src/types/index.ts
+@@ -20,6 +20,22 @@ export interface Project {
+   image?: string;
+ }
+ 
++export type ProductBadge = "best-sale" | "new" | "featured";
++
++export interface Product {
++  id: number;
++  nameVi: string;
++  nameEn: string;
++  slug: string;
++  brand: string;
++  subcategory?: string;
++  descriptionVi?: string;
++  descriptionEn?: string;
++  image?: string;
++  badge?: ProductBadge;
++  sortOrder: number;
++}
++
+ export interface Partner {
+   id: string;
+   name: string;
+diff --git a/supabase/schema.sql b/supabase/schema.sql
+index b30a944..34816f0 100644
+--- a/supabase/schema.sql
++++ b/supabase/schema.sql
+@@ -25,6 +25,25 @@ create table if not exists public.projects (
+   updated_at timestamptz not null default now()
+ );
+ 
++-- ============================================================
++-- products: Danh mục sản phẩm (trang Cửa hàng)
++-- ============================================================
++create table if not exists public.products (
++  id bigint generated always as identity primary key,
++  name_vi text not null,
++  name_en text not null,
++  slug text not null unique,
++  brand text not null,
++  subcategory text,
++  description_vi text,
++  description_en text,
++  image_url text,
++  badge text check (badge in ('best-sale', 'new', 'featured')),
++  sort_order int not null default 0,
++  created_at timestamptz not null default now(),
++  updated_at timestamptz not null default now()
++);
++
+ -- ============================================================
+ -- posts: Bài viết tin tức
+ -- ============================================================
+@@ -74,14 +93,18 @@ create table if not exists public.contact_submissions (
+ -- Row Level Security
+ -- ============================================================
+ alter table public.projects enable row level security;
++alter table public.products enable row level security;
+ alter table public.posts enable row level security;
+ alter table public.partners enable row level security;
+ alter table public.contact_submissions enable row level security;
+ 
+--- Đọc công khai: ai cũng xem được projects/partners, và posts đã published
++-- Đọc công khai: ai cũng xem được projects/products/partners, và posts đã published
+ create policy "public read projects" on public.projects
+   for select using (true);
+ 
++create policy "public read products" on public.products
++  for select using (true);
++
+ create policy "public read partners" on public.partners
+   for select using (true);
+ 
+@@ -92,6 +115,9 @@ create policy "public read published posts" on public.posts
+ create policy "authenticated manage projects" on public.projects
+   for all using (auth.role() = 'authenticated') with check (auth.role() = 'authenticated');
+ 
++create policy "authenticated manage products" on public.products
++  for all using (auth.role() = 'authenticated') with check (auth.role() = 'authenticated');
++
+ create policy "authenticated manage posts" on public.posts
+   for all using (auth.role() = 'authenticated') with check (auth.role() = 'authenticated');
+ 
+@@ -111,12 +137,15 @@ create policy "authenticated read contact submissions" on public.contact_submiss
+ insert into storage.buckets (id, name, public)
+ values
+   ('project-images', 'project-images', true),
++  ('product-images', 'product-images', true),
+   ('post-images', 'post-images', true),
+   ('partner-logos', 'partner-logos', true)
+ on conflict (id) do nothing;
+ 
+ create policy "public read project images" on storage.objects
+   for select using (bucket_id = 'project-images');
++create policy "public read product images" on storage.objects
++  for select using (bucket_id = 'product-images');
+ create policy "public read post images" on storage.objects
+   for select using (bucket_id = 'post-images');
+ create policy "public read partner logos" on storage.objects
+@@ -124,6 +153,8 @@ create policy "public read partner logos" on storage.objects
+ 
+ create policy "authenticated upload project images" on storage.objects
+   for insert with check (bucket_id = 'project-images' and auth.role() = 'authenticated');
++create policy "authenticated upload product images" on storage.objects
++  for insert with check (bucket_id = 'product-images' and auth.role() = 'authenticated');
+ create policy "authenticated upload post images" on storage.objects
+   for insert with check (bucket_id = 'post-images' and auth.role() = 'authenticated');
+ create policy "authenticated upload partner logos" on storage.objects
+diff --git a/supabase/seed-products.sql b/supabase/seed-products.sql
+new file mode 100644
+index 0000000..1e49a4b
+--- /dev/null
++++ b/supabase/seed-products.sql
+@@ -0,0 +1,21 @@
++-- Dữ liệu mẫu cho bảng products — chạy sau supabase/schema.sql nếu muốn có sẵn sản phẩm demo.
++-- Có thể xóa/sửa thoải mái tại /admin/san-pham sau khi đăng nhập.
++
++insert into public.products
++  (name_vi, name_en, slug, brand, subcategory, description_vi, description_en, badge, sort_order)
++values
++  ('Bộ nguồn DC 24V công nghiệp', 'Industrial 24V DC Power Supply', 'bo-nguon-dc-24v-cong-nghiep', 'Phoenix Contact', 'Bộ nguồn', 'Bộ nguồn ổn định 24VDC cho tủ điều khiển và hệ thống tự động hóa.', 'Stable 24VDC power supply for control cabinets and automation systems.', 'best-sale', 100),
++  ('Rơ le trung gian công nghiệp', 'Industrial Interface Relay', 'role-trung-gian-cong-nghiep', 'Phoenix Contact', 'Rơ le', 'Rơ le trung gian cách ly tín hiệu điều khiển, độ tin cậy cao.', 'Interface relay for control signal isolation, high reliability.', null, 90),
++  ('PLCnext Controller', 'PLCnext Controller', 'plcnext-controller', 'Phoenix Contact', 'Controller', 'Bộ điều khiển mở, hỗ trợ PROFINET, ứng dụng trong hệ thống tự động hóa quan trọng.', 'Open controller platform supporting PROFINET for critical automation systems.', 'featured', 85),
++  ('Switch mạng công nghiệp 8 cổng', '8-Port Industrial Ethernet Switch', 'switch-mang-cong-nghiep-8-cong', 'Atop Technologies', 'Switch', 'Switch Ethernet công nghiệp 8 cổng, chịu nhiệt độ khắc nghiệt.', '8-port industrial Ethernet switch built for harsh environments.', 'best-sale', 80),
++  ('Bộ chuyển đổi giao thức Modbus RTU sang TCP', 'Modbus RTU to TCP Protocol Gateway', 'bo-chuyen-doi-modbus-rtu-sang-tcp', 'Atop Technologies', 'Protocol Gateway', 'Chuyển đổi giao thức Modbus RTU sang Modbus TCP/IP cho hệ thống SCADA.', 'Converts Modbus RTU to Modbus TCP/IP for SCADA systems.', null, 70),
++  ('Router 4G/5G công nghiệp EX900', 'EX900 Industrial 4G/5G Router', 'router-4g-5g-cong-nghiep-ex900', 'Edgeware Technologies', 'Router 4G/5G', 'Router 4G/5G ứng dụng SCADA điện lực tự động hóa.', '4G/5G router for power grid SCADA automation applications.', 'new', 65),
++  ('RTU530 Remote Terminal Unit', 'RTU530 Remote Terminal Unit', 'rtu530-remote-terminal-unit', 'Hitachi Energy', 'RTU', 'Thiết bị đầu cuối RTU cho trạm biến áp và nhà máy điện.', 'Remote terminal unit for substations and power plants.', null, 60),
++  ('Phần mềm MicroSCADA SYS600', 'MicroSCADA SYS600 Software', 'phan-mem-microscada-sys600', 'Hitachi Energy', 'Phần mềm SCADA', 'Phần mềm SCADA vận hành, giám sát hệ thống điện.', 'SCADA software for power system operation and monitoring.', 'featured', 55),
++  ('Ethernet Switch công nghiệp EtherWAN', 'EtherWAN Industrial Ethernet Switch', 'ethernet-switch-cong-nghiep-etherwan', 'Etherwan', 'Switch', 'Switch mạng công nghiệp bền bỉ, hỗ trợ nhiều cổng quang.', 'Rugged industrial network switch with multiple fiber ports.', null, 50),
++  ('Modem 4G công nghiệp', 'Industrial 4G Modem', 'modem-4g-cong-nghiep', 'Etherwan', 'Modem 4G', 'Modem 4G kết nối SCADA từ xa cho trạm biến áp, nhà máy điện.', '4G modem for remote SCADA connectivity at substations and power plants.', 'best-sale', 45),
++  ('Phần mềm ActionNet', 'ActionNet Software', 'phan-mem-actionnet', 'Spin Engenharia', 'Phần mềm', 'Phần mềm giám sát và điều khiển lưới điện phân phối.', 'Monitoring and control software for distribution grids.', null, 40),
++  ('SCADA Data Gateway', 'SCADA Data Gateway', 'scada-data-gateway', 'Triangle MicroWorks', 'Phần mềm', 'Phần mềm SCADA Data Gateway hỗ trợ đa giao thức truyền thông.', 'Multi-protocol SCADA data gateway software.', null, 35),
++  ('Bộ đồng bộ thời gian GPS/GNSS', 'GPS/GNSS Time Synchronization Unit', 'bo-dong-bo-thoi-gian-gps-gnss', 'Z - Thiết bị khác', null, 'Bộ đồng bộ thời gian GPS/GNSS cho hệ thống SCADA trạm biến áp.', 'GPS/GNSS time synchronization unit for substation SCADA systems.', null, 30),
++  ('Thiết bị chống sét lan truyền (SPD)', 'Surge Protective Device (SPD)', 'thiet-bi-chong-set-lan-truyen-spd', 'Z - Thiết bị khác', null, 'Thiết bị chống sét lan truyền bảo vệ tủ điều khiển và thiết bị điện.', 'Surge protective device for control cabinets and electrical equipment.', null, 25)
++on conflict (slug) do nothing;

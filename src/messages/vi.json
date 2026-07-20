@@ -10,6 +10,7 @@
     "productsScada": "Giải pháp tự động hóa SCADA/DCS",
     "productsInfo": "Hệ thống thông tin",
     "productsPrimary": "Thiết bị nhất thứ & tủ điều khiển",
+    "store": "Cửa hàng",
     "solutions": "Giải pháp",
     "projects": "Dự án",
     "news": "Tin tức",
@@ -88,6 +89,25 @@
         "Thiết bị nhất thứ các hãng ABB, Siemens, Taikai, Chint"
       ]
     }
+  },
+  "store": {
+    "pageTitle": "Cửa hàng",
+    "pageDescription": "Danh mục thiết bị tự động hóa, SCADA và điện công nghiệp do DTCA cung cấp, phân phối chính hãng.",
+    "home": "Trang chủ",
+    "categoriesTitle": "Danh mục sản phẩm",
+    "allBrands": "Tất cả sản phẩm",
+    "showingResults": "Hiển thị {count} sản phẩm",
+    "sortLabel": "Sắp xếp",
+    "sortDefault": "Mặc định",
+    "sortNameAsc": "Tên A → Z",
+    "sortNameDesc": "Tên Z → A",
+    "badgeBestSale": "Best sale",
+    "badgeNew": "Mới",
+    "badgeFeatured": "Nổi bật",
+    "viewDetails": "Xem chi tiết",
+    "requestQuote": "Liên hệ báo giá",
+    "empty": "Chưa có sản phẩm nào trong danh mục này.",
+    "backToStore": "← Về Cửa hàng"
   },
   "solutions": {
     "pageTitle": "Giải pháp theo ngành",

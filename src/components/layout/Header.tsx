@@ -19,6 +19,7 @@ export function Header() {
   ];
 
   const navLinks = [
+    { href: "/cua-hang" as const, label: t("store") },
     { href: "/giai-phap" as const, label: t("solutions") },
     { href: "/du-an" as const, label: t("projects") },
     { href: "/tin-tuc" as const, label: t("news") },

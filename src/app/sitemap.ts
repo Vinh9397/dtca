@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { routing } from "@/i18n/routing";
 import { getPathname } from "@/i18n/navigation";
 import { getPosts } from "@/lib/data-access/posts";
+import { getAllBrandSlugs } from "@/lib/data-access/products";
 
 const staticPathnames = [
   "/",
@@ -9,6 +10,7 @@ const staticPathnames = [
   "/san-pham-dich-vu/scada-dcs",
   "/san-pham-dich-vu/he-thong-thong-tin",
   "/san-pham-dich-vu/thiet-bi-nhat-thu",
+  "/cua-hang",
   "/giai-phap",
   "/du-an",
   "/tin-tuc",
@@ -19,6 +21,7 @@ const staticPathnames = [
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://dtca.vn";
   const posts = await getPosts();
+  const brandSlugs = await getAllBrandSlugs();
 
   const staticEntries: MetadataRoute.Sitemap = staticPathnames.map((pathname) => ({
     url: `${siteUrl}${getPathname({ locale: routing.defaultLocale, href: pathname })}`,
@@ -51,5 +54,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   }));
 
-  return [...staticEntries, ...postEntries];
+  const brandEntries: MetadataRoute.Sitemap = brandSlugs.map((brand) => ({
+    url: `${siteUrl}${getPathname({
+      locale: routing.defaultLocale,
+      href: { pathname: "/cua-hang/[brand]", params: { brand } },
+    })}`,
+    alternates: {
+      languages: Object.fromEntries(
+        routing.locales.map((locale) => [
+          locale,
+          `${siteUrl}${getPathname({
+            locale,
+            href: { pathname: "/cua-hang/[brand]", params: { brand } },
+          })}`,
+        ])
+      ),
+    },
+  }));
+
+  return [...staticEntries, ...postEntries, ...brandEntries];
 }

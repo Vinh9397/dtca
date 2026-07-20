@@ -20,6 +20,22 @@ export interface Project {
   image?: string;
 }
 
+export type ProductBadge = "best-sale" | "new" | "featured";
+
+export interface Product {
+  id: number;
+  nameVi: string;
+  nameEn: string;
+  slug: string;
+  brand: string;
+  subcategory?: string;
+  descriptionVi?: string;
+  descriptionEn?: string;
+  image?: string;
+  badge?: ProductBadge;
+  sortOrder: number;
+}
+
 export interface Partner {
   id: string;
   name: string;

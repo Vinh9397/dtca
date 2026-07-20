@@ -26,6 +26,25 @@ create table if not exists public.projects (
 );
 
 -- ============================================================
+-- products: Danh mục sản phẩm (trang Cửa hàng)
+-- ============================================================
+create table if not exists public.products (
+  id bigint generated always as identity primary key,
+  name_vi text not null,
+  name_en text not null,
+  slug text not null unique,
+  brand text not null,
+  subcategory text,
+  description_vi text,
+  description_en text,
+  image_url text,
+  badge text check (badge in ('best-sale', 'new', 'featured')),
+  sort_order int not null default 0,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+-- ============================================================
 -- posts: Bài viết tin tức
 -- ============================================================
 create table if not exists public.posts (
@@ -74,12 +93,16 @@ create table if not exists public.contact_submissions (
 -- Row Level Security
 -- ============================================================
 alter table public.projects enable row level security;
+alter table public.products enable row level security;
 alter table public.posts enable row level security;
 alter table public.partners enable row level security;
 alter table public.contact_submissions enable row level security;
 
--- Đọc công khai: ai cũng xem được projects/partners, và posts đã published
+-- Đọc công khai: ai cũng xem được projects/products/partners, và posts đã published
 create policy "public read projects" on public.projects
+  for select using (true);
+
+create policy "public read products" on public.products
   for select using (true);
 
 create policy "public read partners" on public.partners
@@ -90,6 +113,9 @@ create policy "public read published posts" on public.posts
 
 -- Ghi: chỉ user đã đăng nhập (tài khoản quản trị nội bộ DTCA, tạo trong Supabase Auth) mới được insert/update/delete
 create policy "authenticated manage projects" on public.projects
+  for all using (auth.role() = 'authenticated') with check (auth.role() = 'authenticated');
+
+create policy "authenticated manage products" on public.products
   for all using (auth.role() = 'authenticated') with check (auth.role() = 'authenticated');
 
 create policy "authenticated manage posts" on public.posts
@@ -111,12 +137,15 @@ create policy "authenticated read contact submissions" on public.contact_submiss
 insert into storage.buckets (id, name, public)
 values
   ('project-images', 'project-images', true),
+  ('product-images', 'product-images', true),
   ('post-images', 'post-images', true),
   ('partner-logos', 'partner-logos', true)
 on conflict (id) do nothing;
 
 create policy "public read project images" on storage.objects
   for select using (bucket_id = 'project-images');
+create policy "public read product images" on storage.objects
+  for select using (bucket_id = 'product-images');
 create policy "public read post images" on storage.objects
   for select using (bucket_id = 'post-images');
 create policy "public read partner logos" on storage.objects
@@ -124,6 +153,8 @@ create policy "public read partner logos" on storage.objects
 
 create policy "authenticated upload project images" on storage.objects
   for insert with check (bucket_id = 'project-images' and auth.role() = 'authenticated');
+create policy "authenticated upload product images" on storage.objects
+  for insert with check (bucket_id = 'product-images' and auth.role() = 'authenticated');
 create policy "authenticated upload post images" on storage.objects
   for insert with check (bucket_id = 'post-images' and auth.role() = 'authenticated');
 create policy "authenticated upload partner logos" on storage.objects

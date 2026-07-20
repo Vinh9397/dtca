@@ -25,6 +25,14 @@ export const routing = defineRouting({
       vi: "/giai-phap",
       en: "/solutions",
     },
+    "/cua-hang": {
+      vi: "/cua-hang",
+      en: "/store",
+    },
+    "/cua-hang/[brand]": {
+      vi: "/cua-hang/[brand]",
+      en: "/store/[brand]",
+    },
     "/du-an": {
       vi: "/du-an",
       en: "/projects",

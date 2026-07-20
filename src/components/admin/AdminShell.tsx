@@ -3,6 +3,7 @@ import { signOut } from "@/lib/supabase/auth-actions";
 
 const navItems = [
   { href: "/admin", label: "Tổng quan" },
+  { href: "/admin/san-pham", label: "Sản phẩm" },
   { href: "/admin/du-an", label: "Dự án" },
   { href: "/admin/tin-tuc", label: "Tin tức" },
 ];

@@ -10,6 +10,7 @@
     "productsScada": "SCADA/DCS Automation Solutions",
     "productsInfo": "Information Systems",
     "productsPrimary": "Primary Equipment & Control Cabinets",
+    "store": "Store",
     "solutions": "Solutions",
     "projects": "Projects",
     "news": "News",
@@ -88,6 +89,25 @@
         "Primary equipment from ABB, Siemens, Taikai, Chint"
       ]
     }
+  },
+  "store": {
+    "pageTitle": "Store",
+    "pageDescription": "Automation, SCADA and industrial electrical equipment supplied and distributed by DTCA.",
+    "home": "Home",
+    "categoriesTitle": "Product Categories",
+    "allBrands": "All products",
+    "showingResults": "Showing {count} products",
+    "sortLabel": "Sort by",
+    "sortDefault": "Default",
+    "sortNameAsc": "Name A → Z",
+    "sortNameDesc": "Name Z → A",
+    "badgeBestSale": "Best sale",
+    "badgeNew": "New",
+    "badgeFeatured": "Featured",
+    "viewDetails": "View details",
+    "requestQuote": "Request a quote",
+    "empty": "No products in this category yet.",
+    "backToStore": "← Back to Store"
   },
   "solutions": {
     "pageTitle": "Solutions by Industry",
