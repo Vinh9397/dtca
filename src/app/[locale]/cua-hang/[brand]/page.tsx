@@ -10,6 +10,8 @@ import {
   getProductsByBrand,
 } from "@/lib/data-access/products";
 
+export const revalidate = 60;
+
 export async function generateStaticParams() {
   const brandSlugs = await getAllBrandSlugs();
   return brandSlugs.map((brand) => ({ brand }));

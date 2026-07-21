@@ -1,0 +1,28 @@
+diff --git a/src/app/[locale]/cua-hang/[brand]/page.tsx b/src/app/[locale]/cua-hang/[brand]/page.tsx
+index 10e4937..08f71fc 100644
+--- a/src/app/[locale]/cua-hang/[brand]/page.tsx
++++ b/src/app/[locale]/cua-hang/[brand]/page.tsx
+@@ -10,6 +10,8 @@ import {
+   getProductsByBrand,
+ } from "@/lib/data-access/products";
+ 
++export const revalidate = 60;
++
+ export async function generateStaticParams() {
+   const brandSlugs = await getAllBrandSlugs();
+   return brandSlugs.map((brand) => ({ brand }));
+diff --git a/src/app/[locale]/cua-hang/page.tsx b/src/app/[locale]/cua-hang/page.tsx
+index c136154..b5aa15c 100644
+--- a/src/app/[locale]/cua-hang/page.tsx
++++ b/src/app/[locale]/cua-hang/page.tsx
+@@ -4,6 +4,10 @@ import { Link } from "@/i18n/navigation";
+ import { ProductCatalog } from "@/components/ProductCatalog";
+ import { getProducts, getProductBrands } from "@/lib/data-access/products";
+ 
++// Làm mới dữ liệu mỗi 60 giây, để sản phẩm thêm/sửa trong /admin/san-pham
++// hiện ra trên trang Cửa hàng mà không cần deploy lại.
++export const revalidate = 60;
++
+ export async function generateMetadata({
+   params,
+ }: {

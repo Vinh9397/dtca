@@ -4,6 +4,10 @@ import { Link } from "@/i18n/navigation";
 import { ProductCatalog } from "@/components/ProductCatalog";
 import { getProducts, getProductBrands } from "@/lib/data-access/products";
 
+// Làm mới dữ liệu mỗi 60 giây, để sản phẩm thêm/sửa trong /admin/san-pham
+// hiện ra trên trang Cửa hàng mà không cần deploy lại.
+export const revalidate = 60;
+
 export async function generateMetadata({
   params,
 }: {
