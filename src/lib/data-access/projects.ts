@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public";
 import { isSupabaseConfigured } from "./config";
 import { projects as fallbackProjects, projectYears as fallbackYears } from "@/lib/data/projects";
 import type { Project } from "@/types";
@@ -36,7 +36,7 @@ function mapRow(row: ProjectRow): Project {
 export async function getProjects(): Promise<Project[]> {
   if (!isSupabaseConfigured()) return fallbackProjects;
 
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data, error } = await supabase
     .from("projects")
     .select("*")

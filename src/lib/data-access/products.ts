@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public";
 import { isSupabaseConfigured } from "./config";
 import { products as fallbackProducts } from "@/lib/data/products";
 import { slugify } from "@/lib/slug";
@@ -37,7 +37,7 @@ function mapRow(row: ProductRow): Product {
 export async function getProducts(): Promise<Product[]> {
   if (!isSupabaseConfigured()) return fallbackProducts;
 
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data, error } = await supabase
     .from("products")
     .select("*")

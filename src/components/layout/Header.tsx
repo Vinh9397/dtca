@@ -13,13 +13,13 @@ export function Header() {
   const [productsOpen, setProductsOpen] = useState(false);
 
   const productLinks = [
+    { href: "/cua-hang" as const, label: t("store") },
     { href: "/san-pham-dich-vu/scada-dcs" as const, label: t("productsScada") },
     { href: "/san-pham-dich-vu/he-thong-thong-tin" as const, label: t("productsInfo") },
     { href: "/san-pham-dich-vu/thiet-bi-nhat-thu" as const, label: t("productsPrimary") },
   ];
 
   const navLinks = [
-    { href: "/cua-hang" as const, label: t("store") },
     { href: "/giai-phap" as const, label: t("solutions") },
     { href: "/du-an" as const, label: t("projects") },
     { href: "/tin-tuc" as const, label: t("news") },
@@ -60,15 +60,17 @@ export function Header() {
             </button>
             {productsOpen ? (
               <div className="absolute left-0 top-full w-80 rounded-lg border border-navy-100 bg-white p-3 shadow-lg">
-                {productLinks.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className="block rounded-md px-3 py-2.5 text-sm font-medium text-navy-800 hover:bg-navy-50 hover:text-navy-950"
-                    onClick={() => setProductsOpen(false)}
-                  >
-                    {link.label}
-                  </Link>
+                {productLinks.map((link, index) => (
+                  <div key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="block rounded-md px-3 py-2.5 text-sm font-medium text-navy-800 hover:bg-navy-50 hover:text-navy-950"
+                      onClick={() => setProductsOpen(false)}
+                    >
+                      {link.label}
+                    </Link>
+                    {index === 0 ? <div className="my-1 border-t border-navy-100" /> : null}
+                  </div>
                 ))}
               </div>
             ) : null}

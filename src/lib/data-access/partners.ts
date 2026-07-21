@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public";
 import { isSupabaseConfigured } from "./config";
 import { partners as fallbackPartners } from "@/lib/data/partners";
 import type { Partner } from "@/types";
@@ -12,7 +12,7 @@ interface PartnerRow {
 export async function getPartners(): Promise<Partner[]> {
   if (!isSupabaseConfigured()) return fallbackPartners;
 
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data, error } = await supabase
     .from("partners")
     .select("*")
