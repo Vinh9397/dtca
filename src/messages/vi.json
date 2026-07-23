@@ -107,7 +107,12 @@
     "viewDetails": "Xem chi tiết",
     "requestQuote": "Liên hệ báo giá",
     "empty": "Chưa có sản phẩm nào trong danh mục này.",
-    "backToStore": "← Về Cửa hàng"
+    "backToStore": "← Về Cửa hàng",
+    "priceContact": "Giá bán: liên hệ!",
+    "descriptionTitle": "Mô tả",
+    "relatedProducts": "Sản phẩm liên quan",
+    "shareTitle": "Chia sẻ",
+    "noDescription": "Liên hệ với chúng tôi để biết thêm thông tin chi tiết về sản phẩm này."
   },
   "solutions": {
     "pageTitle": "Giải pháp theo ngành",

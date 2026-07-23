@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { slugify } from "@/lib/slug";
 import type { Product } from "@/types";
 
 const badgeLabelKey: Record<NonNullable<Product["badge"]>, string> = {
@@ -13,10 +14,14 @@ export function ProductCard({ product }: { product: Product }) {
   const locale = useLocale();
   const t = useTranslations("store");
   const name = locale === "vi" ? product.nameVi : product.nameEn;
+  const detailHref = {
+    pathname: "/cua-hang/[brand]/[slug]" as const,
+    params: { brand: slugify(product.brand), slug: product.slug },
+  };
 
   return (
     <article className="group flex flex-col overflow-hidden rounded-lg border border-navy-100 bg-white shadow-sm transition-shadow hover:shadow-md">
-      <div className="relative aspect-square w-full overflow-hidden bg-navy-50">
+      <Link href={detailHref} className="relative block aspect-square w-full overflow-hidden bg-navy-50">
         {product.image ? (
           <Image
             src={product.image}
@@ -39,9 +44,13 @@ export function ProductCard({ product }: { product: Product }) {
             {t(badgeLabelKey[product.badge])}
           </span>
         ) : null}
-      </div>
+      </Link>
       <div className="flex flex-1 flex-col gap-2 p-4 text-center">
-        <h3 className="text-sm font-semibold leading-snug text-navy-950">{name}</h3>
+        <Link href={detailHref}>
+          <h3 className="text-sm font-semibold leading-snug text-navy-950 hover:text-accent-red">
+            {name}
+          </h3>
+        </Link>
         <p className="text-xs font-medium uppercase tracking-wide text-navy-500">{product.brand}</p>
         <div className="mt-auto flex flex-col gap-2 pt-2">
           <Link

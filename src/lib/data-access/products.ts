@@ -69,6 +69,11 @@ export async function getAllBrandSlugs(): Promise<string[]> {
   return Array.from(new Set(list.map((p) => slugify(p.brand))));
 }
 
+export async function getRelatedProducts(product: Product, limit = 5): Promise<Product[]> {
+  const list = await getProducts();
+  return list.filter((p) => p.brand === product.brand && p.id !== product.id).slice(0, limit);
+}
+
 export interface ProductBrandSummary {
   brand: string;
   count: number;

@@ -33,6 +33,10 @@ export const routing = defineRouting({
       vi: "/cua-hang/[brand]",
       en: "/store/[brand]",
     },
+    "/cua-hang/[brand]/[slug]": {
+      vi: "/cua-hang/[brand]/[slug]",
+      en: "/store/[brand]/[slug]",
+    },
     "/du-an": {
       vi: "/du-an",
       en: "/projects",
